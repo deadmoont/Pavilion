@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "504251443392",
+    "project_id": "pavilion-b793c",
+    "storage_bucket": "pavilion-b793c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504251443392:android:d903f8ad596e682a21a525",
+        "android_client_info": {
+          "package_name": "com.example.pavilion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXqvAqTKSpSPJfEm8TXCEYj4jgULSRDLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
