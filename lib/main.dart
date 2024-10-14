@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pavilion/firebase_options.dart';
 import 'package:pavilion/screens/home_screen.dart';
+import 'package:pavilion/screens/reelsPage.dart';
 import 'api/notif_api.dart';
+import 'components/bottom_nav_bar.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -20,10 +22,11 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: HomeScreen(),
+      home: BottomNavBar(),
     );
   }
 }
