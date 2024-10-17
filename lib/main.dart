@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:pavilion/Bottom%20Nav/bottom_nav.dart';
 import 'package:pavilion/firebase_options.dart';
 import 'package:pavilion/screens/event_details.dart';
 import 'package:pavilion/screens/home_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: BottomNavBar(),
+      home: CustomNavBar(),
     );
   }
 }
