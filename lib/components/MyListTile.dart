@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-
 class MyListTile extends StatefulWidget {
   final bool isFirst;
   final bool isLast;
-
   const MyListTile({
     super.key,
     required this.isFirst,
@@ -60,13 +58,9 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
           isFirst: widget.isFirst,
           isLast: widget.isLast,
           beforeLineStyle: const LineStyle(color: Colors.deepPurple),
-          indicatorStyle: IndicatorStyle(
-            width: 40,
+          indicatorStyle: const IndicatorStyle(
+            width: 15,
             color: Colors.deepPurple,
-            iconStyle: IconStyle(
-              iconData: Icons.done,
-              color: Colors.white,
-            ),
           ),
           endChild: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
@@ -76,10 +70,10 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(
-                //     // builder: (context) => const FullScreenImage(
-                //     //   imageUrl:
-                //     //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAXzyemmMPxnh8d7KAoBectuQ5Mxn-UKaOTA&s',
-                //     // ),
+                //     builder: (context) => const FullScreenImage(
+                //       imageUrl:
+                //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAXzyemmMPxnh8d7KAoBectuQ5Mxn-UKaOTA&s',
+                //     ),
                 //   ),
                 // );
               },
