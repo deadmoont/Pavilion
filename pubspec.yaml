@@ -49,8 +49,10 @@ dependencies:
   http: ^1.2.1
   carousel_slider_plus: ^7.0.1
   another_stepper: ^1.2.2
-
-
+  flutter_staggered_grid_view: ^0.7.0
+  timeline_tile: ^2.0.0
+  bottom_bar_matu: ^1.5.0
+  animate_gradient: ^0.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -75,6 +77,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
 assets:
+  - assets/videos/temp.mp4
+  - assets/svgIcons/circle1.png
+  - assets/svgIcons/circle1.png
+  - assets/svgIcons/dash.png
   - assets/svgIcons/
   - assets/images/
   - assets/animation/

@@ -23,7 +23,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                 // Top image with gradient overlay
                 Container(
                   height: 400,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
                         'https://th.bing.com/th/id/OIP.GPFEY6kfgxbsja6gmrW6rwHaE7?rs=1&pid=ImgDetMain',

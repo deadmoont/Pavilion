@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAXqvAqTKSpSPJfEm8TXCEYj4jgULSRDLs',
-    appId: '1:504251443392:android:d903f8ad596e682a21a525',
-    messagingSenderId: '504251443392',
-    projectId: 'pavilion-b793c',
-    storageBucket: 'pavilion-b793c.appspot.com',
+    apiKey: 'AIzaSyA2c5NnMXyyXHbm7yp1EFjLBAYpDNjxp3Q',
+    appId: '1:1066404534395:android:4cff92056b15a6ea796ade',
+    messagingSenderId: '1066404534395',
+    projectId: 'first-e6681',
+    storageBucket: 'first-e6681.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC6E1Ra-rkc_yLlJH-HHqnKlXYeLKooTgc',
-    appId: '1:504251443392:ios:8548d1750a1d204f21a525',
-    messagingSenderId: '504251443392',
-    projectId: 'pavilion-b793c',
-    storageBucket: 'pavilion-b793c.appspot.com',
+    apiKey: 'AIzaSyA2c5NnMXyyXHbm7yp1EFjLBAYpDNjxp3Q',
+    appId: '1:1066404534395:ios:4cff92056b15a6ea796ade',
+    messagingSenderId: '1066404534395',
+    projectId: 'first-e6681',
+    storageBucket: 'first-e6681.appspot.com',
     iosBundleId: 'com.example.pavilion',
   );
 }
