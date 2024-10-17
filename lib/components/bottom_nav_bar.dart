@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pavilion/screens/PhotoWallScreen.dart';
+import 'package:pavilion/screens/SignUpScreen.dart';
+import 'package:pavilion/screens/SpecificEvents.dart';
+import 'package:pavilion/screens/TeamsPage.dart';
 import 'package:pavilion/screens/home_screen.dart';
 import 'package:pavilion/screens/merchScreen.dart';
 import 'package:pavilion/screens/profileScreen.dart';
+import 'package:pavilion/screens/test.dart';
 import 'package:pavilion/screens/timelineScreen.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -42,9 +47,9 @@ class BottomNavBar extends StatelessWidget {
         body: TabBarView(
           children: [
             HomeScreen(),
-            MerchScreen(),
-            ProfileScreen(),
-            TimelineScreen()
+            SpecificEvent(),
+            TeamPage(),
+            Timeline()
           ],
         ),
       ),
