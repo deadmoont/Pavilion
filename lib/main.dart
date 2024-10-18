@@ -11,11 +11,17 @@ import 'components/bottom_nav_bar.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging.instance.subscribeToTopic('all').then((_) {
+    print('Subscribed to "all" topic');
+  }).catchError((error) {
+    print('Failed to subscribe to topic: $error');
+  });
   await FirebaseApi().initNotifications();
   runApp(const MyApp());
 }

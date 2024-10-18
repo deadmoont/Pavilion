@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pavilion/database/Apis.dart';
 
 class SpecificEvent extends StatefulWidget {
   @override
@@ -6,6 +7,24 @@ class SpecificEvent extends StatefulWidget {
 }
 
 class _SpecificEventState extends State<SpecificEvent> {
+  bool _isLoading = false;
+
+  Future<void> _fetchParticipants() async {
+    setState(() {
+      _isLoading = true; // Start the loader
+    });
+
+    try {
+      await APIs.fetchAllHeads();
+    } catch (e) {
+      // Handle any errors if needed
+    } finally {
+      setState(() {
+        _isLoading = false; // Stop the loader
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,35 +170,40 @@ class _SpecificEventState extends State<SpecificEvent> {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.black, backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: Text('ABOUT'),
+                          child: Text('ABOUT', style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(width: 16),
-                      // Participants Button (Disabled)
+                      // Participants Button with Loader
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: null, // Disabled button
+                          onPressed: _isLoading ? null : _fetchParticipants, // Disable if loading
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.white, backgroundColor: Colors.white24,
+                            backgroundColor: Color(0xFF1D1D1D),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: Text('PARTICIPANTS'),
+                          child: _isLoading
+                              ? CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
+                          )
+                              : Text('Participants', style: TextStyle(color: Colors.grey)),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
-                  // Event Description
+                  SizedBox(height: 30),
+                  // Event Description and other UI elements
                   Text(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venentis pulvinar a amet in, suspendisse vitae, posuere eu tortor et. Und commodo, fermentum, mauris leo eget.',
-                    style: TextStyle(color: Colors.white54),
+                    style: TextStyle(color: Colors.white70, fontSize: 20),
                   ),
                   SizedBox(height: 20),
                   // Location Section
@@ -192,10 +216,6 @@ class _SpecificEventState extends State<SpecificEvent> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Container(
-                    height: 150,
-                    color: Colors.black54, // Placeholder for the map
-                  ),
                   SizedBox(height: 20),
                   // Price and Buy Ticket Section
                   Container(
