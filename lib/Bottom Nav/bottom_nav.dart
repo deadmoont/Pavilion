@@ -2,6 +2,7 @@ import 'package:bottom_bar_matu/bottom_bar/bottom_bar_bubble.dart';
 import 'package:bottom_bar_matu/bottom_bar_double_bullet/bottom_bar_double_bullet.dart';
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pavilion/screens/TeamsPage.dart';
 import 'package:pavilion/screens/merchScreen.dart';
 import 'package:pavilion/screens/profileScreen.dart';
@@ -20,7 +21,6 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int _currentIndex = 0;
 
-
   final List<Widget> _pages = [
     HomeScreen(),
     Timeline(),
@@ -28,7 +28,6 @@ class _BottomNavState extends State<BottomNav> {
     TeamPage(),
     ProfileScreen(),
   ];
-
 
   void _onItemSelected(int index) {
     setState(() {
@@ -44,30 +43,42 @@ class _BottomNavState extends State<BottomNav> {
         selectedIndex: _currentIndex,
         items: [
           BottomBarItem(
-            iconBuilder: (color) => Icon(Icons.home, color: color, size: 30),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/home.svg", "assets/svgIcons/home.svg", 0, 37),
           ),
           BottomBarItem(
-            iconBuilder: (color) => Icon(Icons.alarm, color: color, size: 30),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/events_unselect.svg", "assets/svgIcons/events_select.svg", 1, 37),
           ),
           BottomBarItem(
-            iconBuilder: (color) => Icon(Icons.photo_library, color: color, size: 30),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/reels_notselect.svg", "assets/svgIcons/reels_select.svg", 2, 30),
           ),
           BottomBarItem(
-            iconBuilder: (color) => Icon(Icons.receipt, color: color, size: 30),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/timeline_select.svg", "assets/svgIcons/timeline_real_select.svg", 3, 33),
           ),
           BottomBarItem(
-            iconBuilder: (color) => Icon(Icons.inbox, color: color, size: 30),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/about_unselect.svg", "assets/svgIcons/about_select.svg", 4, 37),
           ),
         ],
-        // Animation and style settings
         circle1Color: Colors.blueAccent,
         backgroundColor: Color.fromRGBO(39, 29, 29, 1),
         color: Color.fromRGBO(238, 66, 116, 1),
         bubbleSize: 40,
-        //selectedIconColor: Colors.purple,
         onSelect: _onItemSelected,
       ),
     );
+  }
+
+  // This helper method chooses between the selected and unselected SVG based on the index
+  Widget _buildSvgIcon(String defaultSvg, String selectedSvg, int index, double size) {
+
+    return SvgPicture.asset(
+      _currentIndex == index ? selectedSvg : defaultSvg,
+      color: _currentIndex == index ? Color.fromRGBO(238, 66, 116, 1) : Colors.grey, // Optional: tint color based on selection
+      width: size,
+      height: size,
+    );
+  }
+  Widget _svg(String Svg){
+    return SvgPicture.asset(Svg, width: 30, height: 30,);
   }
 }
 
