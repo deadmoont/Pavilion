@@ -4,10 +4,17 @@ import 'package:timeline_tile/timeline_tile.dart';
 class MyListTile extends StatefulWidget {
   final bool isFirst;
   final bool isLast;
+  final String image;
+  final String name;
+  final String venue;
+
   const MyListTile({
     super.key,
     required this.isFirst,
     required this.isLast,
+    required this.image,
+    required this.name,
+    required this.venue,
   });
 
   @override
@@ -58,6 +65,7 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
           isFirst: widget.isFirst,
           isLast: widget.isLast,
           beforeLineStyle: const LineStyle(color: Colors.deepPurple),
+          afterLineStyle: const LineStyle(color: Colors.deepPurple),
           indicatorStyle: const IndicatorStyle(
             width: 15,
             color: Colors.deepPurple,
@@ -66,16 +74,7 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
             child: GestureDetector(
               onTap: () {
-                // Navigate to full-screen image when the card is tapped
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => const FullScreenImage(
-                //       imageUrl:
-                //       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAXzyemmMPxnh8d7KAoBectuQ5Mxn-UKaOTA&s',
-                //     ),
-                //   ),
-                // );
+                // Handle navigation or other actions on tap
               },
               child: Card(
                 elevation: 5,
@@ -85,27 +84,27 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(12), // More spacing inside the card
                   leading: Hero(
-                    tag: 'imageHero', // Unique tag for hero animation
+                    tag: 'imageHero-${widget.name}', // Unique tag for hero animation
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0), // Rounded image corners
                       child: Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAXzyemmMPxnh8d7KAoBectuQ5Mxn-UKaOTA&s',
+                        widget.image, // Dynamic image URL from widget properties
                         width: 60, // Consistent image size
                         height: 60,
                         fit: BoxFit.cover, // Makes sure the image fills the area nicely
                       ),
                     ),
                   ),
-                  title: const Text(
-                    "Concert",
-                    style: TextStyle(
+                  title: Text(
+                    widget.name,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),
                   ),
-                  subtitle: const Text(
-                    'Main Stage',
-                    style: TextStyle(
+                  subtitle: Text(
+                    widget.venue,
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
                     ),

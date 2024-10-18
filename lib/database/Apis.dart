@@ -100,4 +100,50 @@ class APIs {
     // }
   }
 
+  static Future<List<Map<String, Map<String, Map<String, String>>>>> fetchTimeLine() async {
+    List<Map<String, Map<String, Map<String, String>>>> timeline = [];
+
+    try {
+      // Fetch the document snapshot from Firestore
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+          .collection("Days")
+          .doc("events")
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic> data = snapshot.data()!;
+
+        // Convert map entries to a list and sort by key
+        var sortedEntries = data.entries.toList()
+          ..sort((a, b) => a.key.compareTo(b.key));
+
+        // Iterating through sorted days (e.g., "day0", "day1")
+        for (var entry in sortedEntries) {
+          String dayKey = entry.key;
+          Map<String, dynamic> dayValue = entry.value;
+
+          // Prepare a map for events on that day
+          Map<String, Map<String, String>> events = {};
+
+          // Iterating through each event in the day
+          dayValue.forEach((eventKey, eventValue) {
+            if (eventValue is Map<String, dynamic>) {
+              // Convert inner event map to Map<String, String>
+              Map<String, String> eventDetails = eventValue.map((key, value) => MapEntry(key, value.toString()));
+
+              // Add event to the day's events map
+              events[eventKey] = eventDetails;
+            }
+          });
+
+          // Add day with its events to the timeline
+          timeline.add({dayKey: events});
+        }
+      }
+    } catch (e) {
+      log("Error in getting timeline: $e");
+    }
+
+    return timeline;
+  }
 }
