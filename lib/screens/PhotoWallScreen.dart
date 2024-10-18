@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:pavilion/database/Apis.dart';  // Import the APIs class
 
 class PhotowallScreen extends StatefulWidget {
   const PhotowallScreen({super.key});
@@ -9,17 +10,30 @@ class PhotowallScreen extends StatefulWidget {
 }
 
 class _PhotowallScreenState extends State<PhotowallScreen> {
-  final List<String> images = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBo_hxkL6C5m9d96gh9JZJ0If3PT0q5yTjkg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqC7j7-8EKhxjYGMGQonJpc-FbmeEg-pxaMg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt6uKMUwrXJLWmamH-DOA-9l9gZw4HSfxDWw&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_1CYWYLzwi96E848CtZmbgUz9laH3Yw2QsA&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBo_hxkL6C5m9d96gh9JZJ0If3PT0q5yTjkg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqC7j7-8EKhxjYGMGQonJpc-FbmeEg-pxaMg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt6uKMUwrXJLWmamH-DOA-9l9gZw4HSfxDWw&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_1CYWYLzwi96E848CtZmbgUz9laH3Yw2QsA&s',
-    // Add more URLs of images
-  ];
+  List<String> images = [];
+  bool isLoading = true;  // Add a loading state
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPhotoWall();
+  }
+
+  Future<void> _loadPhotoWall() async {
+    try {
+      // Fetch the images from Firestore
+      List<String> fetchedImages = await APIs.fetchPhotoWall();
+      setState(() {
+        images = fetchedImages;
+        isLoading = false;  // Set loading state to false after data is fetched
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;  // Handle error by disabling the loader
+      });
+      print('Error loading photo wall: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +41,14 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
       appBar: AppBar(
         title: const Text('Photo Wall'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              // Refresh or other action
-            },
-          ),
-        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: MasonryGridView.builder(
+        padding: const EdgeInsets.all(10.0),
+        child: isLoading
+            ? const Center(child: CircularProgressIndicator())  // Show a loader while fetching data
+            : images.isEmpty
+            ? const Center(child: Text('No images found.'))  // Handle case where there are no images
+            : MasonryGridView.builder(
           gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
           ),
@@ -49,11 +59,14 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
               child: Image.network(
                 images[index],
                 fit: BoxFit.fitHeight,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.broken_image);  // Handle error in case of a broken URL
+                },
               ),
             );
           },
-          mainAxisSpacing: 8.0, // Space between tiles vertically
-          crossAxisSpacing: 8.0, // Space between tiles horizontally
+          mainAxisSpacing: 14.0,  // Space between tiles vertically
+          crossAxisSpacing: 14.0,  // Space between tiles horizontally
         ),
       ),
     );

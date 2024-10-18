@@ -23,7 +23,10 @@ class _SponsorPageState extends State<SponsorPage> {
       appBar: AppBar(
         title: Text(
           'Sponsors',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,

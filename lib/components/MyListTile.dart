@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class MyListTile extends StatefulWidget {
@@ -58,17 +59,17 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120, // Slightly taller for a better layout
+      height: 110, // Slightly taller for a better layout
       child: SlideTransition(
         position: _offsetAnimation, // Apply the slide animation
         child: TimelineTile(
           isFirst: widget.isFirst,
           isLast: widget.isLast,
-          beforeLineStyle: const LineStyle(color: Colors.deepPurple),
-          afterLineStyle: const LineStyle(color: Colors.deepPurple),
+          beforeLineStyle: const LineStyle(color: Colors.white),
+          afterLineStyle: const LineStyle(color: Colors.white),
           indicatorStyle: const IndicatorStyle(
             width: 15,
-            color: Colors.deepPurple,
+            color: Colors.white,
           ),
           endChild: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
@@ -82,32 +83,53 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
                   borderRadius: BorderRadius.circular(15), // Rounded corners
                 ),
                 child: ListTile(
-                  contentPadding: const EdgeInsets.all(12), // More spacing inside the card
-                  leading: Hero(
-                    tag: 'imageHero-${widget.name}', // Unique tag for hero animation
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0), // Rounded image corners
-                      child: Image.network(
-                        widget.image, // Dynamic image URL from widget properties
-                        width: 60, // Consistent image size
-                        height: 60,
-                        fit: BoxFit.cover, // Makes sure the image fills the area nicely
+                  contentPadding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 12), // More spacing inside the card
+                  leading: Container(
+                    margin: const EdgeInsets.only(bottom: 2), // Adjust this value to move the image up
+                    child: Hero(
+                      tag: 'imageHero-${widget.name}', // Unique tag for hero animation
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8), // Rounded corners for the image
+                        child: Container(
+                          width: 60, // Fixed width
+                          height: 60, // Fixed height
+                          child: Image.network(
+                            widget.image, // Dynamic image URL from widget properties
+                            fit: BoxFit.cover, // Makes sure the image fills the area nicely
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  title: Text(
-                    widget.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  subtitle: Text(
-                    widget.venue,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
+                    children: [
+                      Text(
+                        widget.name,
+                        style: GoogleFonts.dmSans( // Use Google Fonts
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on, // Change this to your desired icon
+                            size: 16, // Icon size
+                            color: Colors.blueGrey, // Icon color
+                          ),
+                          const SizedBox(width: 4), // Space between icon and venue text
+                          Text(
+                            widget.venue,
+                            style: GoogleFonts.spaceGrotesk( // Use Google Fonts
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),

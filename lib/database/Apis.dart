@@ -302,4 +302,25 @@ class APIs {                   //google user
     }
     return sponsorsList;
   }
+
+  static Future<List<String>> fetchPhotoWall() async {
+    try {
+      // Fetch all documents in the 'photo wall' collection
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection('photowall')
+          .get();
+
+      // Extract image URLs from the documents
+      List<String> imageUrls = snapshot.docs.map((doc) {
+        return doc['url'] as String;  // Assumes 'imageUrl' field contains the image URL
+      }).toList();
+
+      return imageUrls;
+    } catch (e) {
+      print('Error fetching photo wall: $e');
+      return [];  // Return an empty list in case of error
+    }
+  }
 }
+
+
