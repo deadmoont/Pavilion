@@ -69,6 +69,7 @@ import 'package:flutter/material.dart';
 import 'package:pavilion/screens/TeamsPage.dart';
 import 'package:pavilion/screens/home_screen.dart';
 import 'package:pavilion/screens/profileScreen.dart';
+import 'package:pavilion/screens/sponsors_page.dart';
 import 'package:pavilion/screens/timelineScreen.dart';
 
 class BottomNav extends StatefulWidget {
@@ -84,7 +85,7 @@ class _BottomNavState extends State<BottomNav> {
 
   late HomeScreen home;
   late Timeline timeline;
-  late TeamPage teamPage;
+  late SponsorPage teamPage;
   late ProfileScreen profile;
   int currentTabIndex=0;
 
@@ -92,7 +93,7 @@ class _BottomNavState extends State<BottomNav> {
   void initState() {
     timeline = Timeline();
     home = HomeScreen();
-    teamPage = TeamPage();
+    teamPage = SponsorPage();
     profile = ProfileScreen();
     Pages = [home, timeline, teamPage, profile];
     super.initState();

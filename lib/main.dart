@@ -6,6 +6,7 @@ import 'package:pavilion/firebase_options.dart';
 import 'package:pavilion/screens/event_details.dart';
 import 'package:pavilion/screens/home_screen.dart';
 import 'package:pavilion/screens/reelsPage.dart';
+import 'package:pavilion/screens/sponsors_page.dart';
 import 'api/notif_api.dart';
 import 'components/bottom_nav_bar.dart';
 
