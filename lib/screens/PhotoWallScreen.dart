@@ -42,6 +42,7 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
         title: const Text('Photo Wall'),
         centerTitle: true,
       ),
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: isLoading
