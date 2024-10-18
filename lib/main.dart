@@ -9,6 +9,7 @@ import 'package:pavilion/screens/reelsPage.dart';
 import 'package:pavilion/screens/sponsors_page.dart';
 import 'api/notif_api.dart';
 import 'components/bottom_nav_bar.dart';
+import 'screens/SplashScreen.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: BottomNav(),
+      home: SplashScreen(),
     );
   }
 }
