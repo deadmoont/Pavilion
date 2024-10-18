@@ -23,9 +23,9 @@ class _BottomNavState extends State<BottomNav> {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    Timeline(),
     PhotowallScreen(),
     TeamPage(),
+    Timeline(),
     ProfileScreen(),
   ];
 
@@ -43,7 +43,7 @@ class _BottomNavState extends State<BottomNav> {
         selectedIndex: _currentIndex,
         items: [
           BottomBarItem(
-            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/home.svg", "assets/svgIcons/home.svg", 0, 37),
+            iconBuilder: (color) => _buildIcon("assets/svgIcons/home_unselect.svg", "assets/images/effervescense_logo.png", 0, 37),
           ),
           BottomBarItem(
             iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/events_unselect.svg", "assets/svgIcons/events_select.svg", 1, 37),
@@ -77,8 +77,23 @@ class _BottomNavState extends State<BottomNav> {
       height: size,
     );
   }
-  Widget _svg(String Svg){
-    return SvgPicture.asset(Svg, width: 30, height: 30,);
+  Widget _buildIcon(String svgAsset, String pngAsset, int index, double size) {
+    if (_currentIndex == index) {
+      // Display PNG when selected
+      return Image.asset(
+        pngAsset,
+        width: size,
+        height: size,
+      );
+    } else {
+      // Display SVG when unselected
+      return SvgPicture.asset(
+        svgAsset,
+        width: size,
+        height: size,
+        color: Colors.grey, // Optional: Tint unselected SVG
+      );
+    }
   }
 }
 
