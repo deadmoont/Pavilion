@@ -1,21 +1,197 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pavilion/models/artists.dart';
+import 'package:pavilion/models/events.dart';
+import 'package:pavilion/models/merch.dart';
 
-class APIs {
-  // static FirebaseAuth auth = FirebaseAuth.instance;
-  // static User get user=> auth.currentUser!;                          //google user
-  // static FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // static ChatUser? me;  //my info
-  // static SemViseSubject? semSubjectName;
-  // static SpecificSubject? allSubject;                              //no usage
-  // static final user_uid = auth.currentUser!.uid;
+import '../models/sponsors.dart';
+
+class APIs {                   //google user
+  static List<Artists> artistsList = []; // Add a static list to hold artists
+  static List<Merch> merchList = []; // Add a static list to hold artists
+  static List<Events> eventsList = []; // Add a static list to hold artists
+
+
+//--------------FETCH ALL Events Data--------------------------------------------//
+  static Future<List<Events>> fetcheventsData() async {
+    final storage = FlutterSecureStorage();
+    log("Checking local storage for events data...");
+
+    // Try to read data from local storage
+    String? localData = await storage.read(key: "events");
+
+    if (localData != null && localData.isNotEmpty) {
+      log("Data found in local storage, populating events list...");
+
+      try {
+        // Parse local data and populate the artists list
+        List<dynamic> jsonData = jsonDecode(localData);
+        eventsList = jsonData.map((data) => Events.fromJson(data)).toList();
+
+        log('Loaded ${eventsList.length} events from local storage.');
+      } catch (e) {
+        log('Error parsing local storage data: $e');
+      }
+    } else {
+      log("No data found in local storage, fetching from Firebase...");
+
+      try {
+        final querySnapshot = await FirebaseFirestore.instance
+            .collection('Events')
+            .get();
+
+        List<Events> fetchedEvents = [];
+        for (var doc in querySnapshot.docs) {
+          try {
+            var jsonData = doc.data();
+            log('Document Data: $jsonData');
+
+            // Convert jsonData into an Artists object
+            Events events = Events.fromJson(jsonData);
+            fetchedEvents.add(events);
+          } catch (e) {
+            log('Error while parsing document: $e');
+          }
+        }
+
+        // Update the artists list with fetched data
+        eventsList = fetchedEvents;
+
+        // Store the fetched data in local storage
+        await storage.write(key: "events", value: jsonEncode(eventsList.map((event) => event.toJson()).toList()));
+        log('Fetched ${eventsList.length} event from Firebase and stored in local storage.');
+      } on FirebaseException catch (e) {
+        log('FirebaseException: ${e.message}');
+      } catch (e) {
+        log('Error fetching documents: $e');
+      }
+    }
+    return eventsList; // Return the artists list at the end
+  }
+
+
+//--------------FETCH ALL Artist Data--------------------------------------------//
+  static Future<void> fetchMerchData() async {
+    final storage = FlutterSecureStorage();
+    log("Checking local storage for merch data...");
+
+    // Try to read data from local storage
+    String? localData = await storage.read(key: "merch");
+
+    if (localData != null && localData.isNotEmpty) {
+      log("Data found in local storage, populating merch list...");
+
+      try {
+        // Parse local data and populate the artists list
+        List<dynamic> jsonData = jsonDecode(localData);
+        merchList = jsonData.map((data) => Merch.fromJson(data)).toList();
+
+        log('Loaded ${merchList.length} merch from local storage.');
+      } catch (e) {
+        log('Error parsing local storage data: $e');
+      }
+    } else {
+      log("No data found in local storage, fetching from Firebase...");
+
+      try {
+        final querySnapshot = await FirebaseFirestore.instance
+            .collection('merch')
+            .get();
+
+        List<Merch> fetchedMerch = [];
+        for (var doc in querySnapshot.docs) {
+          try {
+            var jsonData = doc.data();
+            log('Document Data: $jsonData');
+
+            // Convert jsonData into an Artists object
+            Merch merch = Merch.fromJson(jsonData);
+            fetchedMerch.add(merch);
+          } catch (e) {
+            log('Error while parsing document: $e');
+          }
+        }
+
+        // Update the artists list with fetched data
+        merchList = fetchedMerch;
+
+        // Store the fetched data in local storage
+        await storage.write(key: "merch", value: jsonEncode(merchList.map((merch) => merch.toJson()).toList()));
+        log('Fetched ${merchList.length} merch from Firebase and stored in local storage.');
+      } on FirebaseException catch (e) {
+        log('FirebaseException: ${e.message}');
+      } catch (e) {
+        log('Error fetching documents: $e');
+      }
+    }
+    // return artistsList; // Return the artists list at the end
+  }
+
+//--------------FETCH ALL Artist Data--------------------------------------------//
+  static Future<List<Artists>> fetchArtistData() async {
+    final storage = FlutterSecureStorage();
+    log("Checking local storage for artist data...");
+
+    // Try to read data from local storage
+    String? localData = await storage.read(key: "artist");
+
+    if (localData != null && localData.isNotEmpty) {
+      log("Data found in local storage, populating artists list...");
+
+      try {
+        // Parse local data and populate the artists list
+        List<dynamic> jsonData = jsonDecode(localData);
+        artistsList = jsonData.map((data) => Artists.fromJson(data)).toList();
+
+        log('Loaded ${artistsList.length} artists from local storage.');
+      } catch (e) {
+        log('Error parsing local storage data: $e');
+      }
+    } else {
+      log("No data found in local storage, fetching from Firebase...");
+
+      try {
+        final querySnapshot = await FirebaseFirestore.instance
+            .collection('Artist')
+            .get();
+
+        List<Artists> fetchedArtists = [];
+        for (var doc in querySnapshot.docs) {
+          try {
+            var jsonData = doc.data();
+            log('Document Data: $jsonData');
+
+            // Convert jsonData into an Artists object
+            Artists artist = Artists.fromJson(jsonData);
+            fetchedArtists.add(artist);
+          } catch (e) {
+            log('Error while parsing document: $e');
+          }
+        }
+
+        // Update the artists list with fetched data
+        artistsList = fetchedArtists;
+
+        // Store the fetched data in local storage
+        await storage.write(key: "artist", value: jsonEncode(artistsList.map((artist) => artist.toJson()).toList()));
+        log('Fetched ${artistsList.length} artists from Firebase and stored in local storage.');
+      } on FirebaseException catch (e) {
+        log('FirebaseException: ${e.message}');
+      } catch (e) {
+        log('Error fetching documents: $e');
+      }
+    }
+    return artistsList; // Return the artists list at the end
+  }
 
 //--------------FETCH ALL SUBJECTS DATA AND STORE IT INTO LOCAL STORAGE--------------------------------------------//
   static Future<void> fetchAllHeads() async {
     log("hello a");
+
     try {
       log("hello b");
       final querySnapshot = await FirebaseFirestore.instance
@@ -38,66 +214,30 @@ class APIs {
 
   }
 
+// This iss the testing function
+  static Future<void> test() async {
+    log("hello a");
 
-//--------------FETCH ALL SUBJECTS Name Based on the Semester AND STORE IT INTO LOCAL STORAGE--------------------------------------------//
-  static Future<void> fetchSemSubjectName() async{
-    //
-    // int yearName = me!.batch!;
-    // int semesterName = me!.semester!;
-    // String branchName = me!.branch!;
-    // String keyName = "${yearName}";
-    //
-    // final storage = new FlutterSecureStorage();
-    // await firestore.collection('Data').doc(yearName.toString()).get().then((user) async {
-    //   if (user.exists) {
-    //
-    //     semSubjectName = SemViseSubject.fromJson(user.data()!);
-    //     var res = (SemViseSubject.fromJson(user.data()!)).toJson();
-    //     await storage.write(key: keyName, value: jsonEncode(res));
-    //     log("Thala For a Reason : ${res}");
-    //   } else {
-    //     log("NO Sem Subject Data FOUND {Failed to load SemSubjectName}");
-    //   }
-    // });
-  }
+    try {
+      log("hello b");
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('Events')
+          .get();
 
+      for (var doc in querySnapshot.docs) {
+        try {
+          var jsonData = doc.data();
+          log('Document Data: $jsonData');
+        } catch (e) {
+          log('Error while parsing document: $e');
+        }
+      }
+    } on FirebaseException catch (e) {
+      log('FirebaseException: ${e.message}');
+    } catch (e) {
+      log('Error fetching documents: $e');
+    }
 
-
-// //-----------------------------Fetch All Semister wise subjects-----------------------------------//
-//   static Stream<QuerySnapshot<Map<String, dynamic>>> semViseSubjects() {
-//     try {
-//       int year = me!.batch!;
-//       final stream = APIs.firestore.collection('Data')
-//           .where('yearName', isEqualTo: year.toString())
-//           .snapshots();
-//       stream.listen((snapshot) {
-//         for (var doc in snapshot.docs) {
-//           log("Document data: ${jsonEncode(doc.data())}");
-//         }
-//       });
-//       return stream;
-//     } catch (e) {
-//       log("Error getting document stream: $e");
-//       // Return an empty stream in case of an error
-//       return const Stream.empty();
-//     }
-//   }
-
-//-----------------------------Fetch the user data-------------------------------------------------//
-  static Future<void> updateCollegeDetails(int batch , String branch , int semester) async{
-
-    // try{
-    //   await firestore.collection("user").doc(user_uid).update({
-    //     "batch" : batch,
-    //     "branch" : branch,
-    //     "college" : "IIIT Allahabad",
-    //     "semester" : semester,
-    //   });
-    //
-    //   log("College Details Updated");
-    // }catch(e){
-    //   log("Error in updating college details: ${e}");
-    // }
   }
 
   static Future<List<Map<String, Map<String, Map<String, String>>>>> fetchTimeLine() async {
@@ -145,5 +285,21 @@ class APIs {
     }
 
     return timeline;
+  }
+
+  static Future<List<Sponsors>> fetchSponsors() async {
+    List<Sponsors> sponsorsList = [];
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("sponsor").get();
+
+      sponsorsList = snapshot.docs.map((doc) {
+        return Sponsors.fromMap(doc.data() as Map<String, dynamic>);
+      }).toList();
+
+      return sponsorsList;
+    } catch (e) {
+      print("Failed to get sponsors: $e");
+    }
+    return sponsorsList;
   }
 }

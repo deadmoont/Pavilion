@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart'; // Make sure to import Firestore
 import '../components/sponsor_card.dart';
+import '../database/Apis.dart';
+import '../models/sponsors.dart'; // Assuming the Sponsors class is in this path
 
 class SponsorPage extends StatefulWidget {
   @override
@@ -8,67 +10,10 @@ class SponsorPage extends StatefulWidget {
 }
 
 class _SponsorPageState extends State<SponsorPage> {
-  Future<List<Map<String, String>>> fetchSponsors() async {
-    // Simulate API call
-    await Future.delayed(Duration(seconds: 2));
-    // Return your API response here
-    return [
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-      {
-        'logo': 'https://cdn.pixabay.com/photo/2023/10/13/17/10/mushroom-8313142_1280.jpg',
-        'name': 'Z Square Mall',
-        'partner': 'Official Mall Partner',
-      },
-    ];
+  // Update the fetchSponsors method to return a Future<List<Sponsors>>
+  static Future<List<Sponsors>> fetchSponsors() async {
+    final api = APIs();
+    return APIs.fetchSponsors();
   }
 
   @override
@@ -76,11 +21,14 @@ class _SponsorPageState extends State<SponsorPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Sponsors', style: TextStyle(color: Colors.white),),
+        title: Text(
+          'Sponsors',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: FutureBuilder<List<Map<String, String>>>(
+      body: FutureBuilder<List<Sponsors>>(
         future: fetchSponsors(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -94,10 +42,11 @@ class _SponsorPageState extends State<SponsorPage> {
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
+              // Accessing Sponsors object properties
+              Sponsors sponsor = snapshot.data![index];
               return SponsorCard(
-                logo: snapshot.data![index]['logo']!,
-                name: snapshot.data![index]['name']!,
-                partner: snapshot.data![index]['partner']!,
+                logo: sponsor.image, // Make sure to include a logo property in Sponsors
+                name: sponsor.name,
               );
             },
           );
@@ -107,81 +56,13 @@ class _SponsorPageState extends State<SponsorPage> {
   }
 }
 
-// class SponsorCard extends StatelessWidget {
-//   final String logo;
-//   final String name;
-//   final String partner;
-//
-//   const SponsorCard({
-//     required this.logo,
-//     required this.name,
-//     required this.partner,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-//       padding: EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Color(0xFF2C2F48),
-//         borderRadius: BorderRadius.circular(10),
-//         border: Border.all(
-//           color: Colors.white.withOpacity(0.1), // Border similar to the image
-//         ),
-//       ),
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           // Logo
-//           Container(
-//             width: 90,
-//             height: 90,
-//             decoration: BoxDecoration(
-//               image: DecorationImage(
-//                 image: NetworkImage(logo), // Use NetworkImage for API data
-//                 fit: BoxFit.contain,
-//               ),
-//             ),
-//           ),
-//           SizedBox(width: 20),
-//           // Sponsor Info
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 name,
-//                 style: TextStyle(
-//                   fontSize: 18,
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//               SizedBox(height: 5),
-//               Text(
-//                 partner,
-//                 style: TextStyle(
-//                   fontSize: 14,
-//                   color: Colors.white70,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 class SponsorCard extends StatelessWidget {
   final String logo;
   final String name;
-  final String partner;
 
   const SponsorCard({
     required this.logo,
     required this.name,
-    required this.partner,
   });
 
   @override
@@ -206,10 +87,11 @@ class SponsorCard extends StatelessWidget {
             width: 130,
             height: 130,
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(20), // Border radius for the image itself
               image: DecorationImage(
                 image: NetworkImage(logo), // NetworkImage or AssetImage for logos
-                fit: BoxFit.cover, // Ensures the logo is well-contained
+                fit: BoxFit.contain, // Ensures the logo is well-contained
               ),
             ),
           ),
@@ -225,14 +107,6 @@ class SponsorCard extends StatelessWidget {
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 5), // Spacing between name and partner info
-                Text(
-                  partner,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white70,
                   ),
                 ),
               ],

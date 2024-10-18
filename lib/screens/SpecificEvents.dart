@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pavilion/database/Apis.dart';
 
 class SpecificEvent extends StatefulWidget {
+  final String image;
+  final String title;
+  final String des;
+  final String venue;
+
+  const SpecificEvent({super.key, required this.image, required this.title, required this.des, required this.venue});
+
+
   @override
   _SpecificEventState createState() => _SpecificEventState();
 }
@@ -38,7 +46,7 @@ class _SpecificEventState extends State<SpecificEvent> {
             right: 0,
             height: MediaQuery.of(context).size.height * 0.5, // Cover top half
             child: Image.network(
-              'https://media.istockphoto.com/id/837765936/photo/crowd-applauding-on-a-concert.jpg?b=1&s=170667a&w=0&k=20&c=ibOozxQZtPBPLqWQDrfkzp9VvRK6HGzDkofrmOgdTiw=', // Replace with your image URL
+              widget.image,
               fit: BoxFit.cover,
             ),
           ),
@@ -114,7 +122,7 @@ class _SpecificEventState extends State<SpecificEvent> {
                             ),
                           ),
                           Text(
-                            'Firemasters',
+                            widget.title,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 28,
@@ -202,13 +210,13 @@ class _SpecificEventState extends State<SpecificEvent> {
                   SizedBox(height: 30),
                   // Event Description and other UI elements
                   Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venentis pulvinar a amet in, suspendisse vitae, posuere eu tortor et. Und commodo, fermentum, mauris leo eget.',
+                    widget.des,
                     style: TextStyle(color: Colors.white70, fontSize: 20),
                   ),
                   SizedBox(height: 20),
                   // Location Section
                   Text(
-                    'LOCATION',
+                    widget.venue,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,

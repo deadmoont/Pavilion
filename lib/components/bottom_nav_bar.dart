@@ -49,7 +49,7 @@ class BottomNavBar extends StatelessWidget {
         body: TabBarView(
           children: [
             HomeScreen(),
-            SpecificEvent(),
+            TicketPage(),
             TeamPage(),
             SponsorPage()
           ],
