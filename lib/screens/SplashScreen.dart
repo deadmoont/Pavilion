@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pavilion/Bottom%20Nav/bottom_nav.dart';
 import 'dart:async';
 
 import 'package:pavilion/components/bottom_nav_bar.dart';
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Start a timer to navigate to the next screen after 3 seconds
     Timer(const Duration(seconds: 3), () {
       // Replace this with the route to your next screen
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>BottomNavBar()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> BottomNav()));
     });
   }
 
