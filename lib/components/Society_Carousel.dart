@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:pavilion/database/Apis.dart';
+import 'package:pavilion/models/SocietyEvents.dart';
+import 'package:pavilion/models/event_model.dart';
+import 'package:pavilion/screens/event_screen.dart';
 import '../models/artists.dart';
 import '../screens/SpecificEvents.dart';
 
 class SocietyCarousel extends StatelessWidget {
-  final List<Artists> data; // Accepting a list of Artists
+  final List<String> data; // Accepting a list of Artists
   const SocietyCarousel({super.key, required this.data});
 
   @override
@@ -19,12 +23,13 @@ class SocietyCarousel extends StatelessWidget {
         itemCount: data.length, // Use the length of the data list
         itemBuilder: (BuildContext context, int index, int realIndex) {
           // Get the image URL from the artist data
-          var imageUrl = data[index].image ?? '';
+          var imageUrl = "https://i.pinimg.com/originals/19/b6/e1/19b6e11237c62e30a0ba84d8aade6b87.jpg" ;
 
           return GestureDetector(
             child: InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>SpecificEvent(image: imageUrl, title: data[index].name ?? '', des: data[index].desc ?? '', venue: data[index].venue ?? '',)));
+
+                 Navigator.push(context, MaterialPageRoute(builder: (_)=>EventScreen(list : APIs.societyeventslist[index], item: data[index],)));
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10),

@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:pavilion/models/SocietyEvents.dart';
 import 'package:pavilion/models/artists.dart';
 import 'package:pavilion/models/events.dart';
 import 'package:pavilion/models/merch.dart';
@@ -14,7 +15,129 @@ class APIs {                   //google user
   static List<Artists> artistsList = []; // Add a static list to hold artists
   static List<Merch> merchList = []; // Add a static list to hold artists
   static List<Events> eventsList = []; // Add a static list to hold artists
+  static List<List<SocietyEve>> societyeventslist = []; // Add a static list to hold artists
 
+  //--------------FETCH ALL Particular society Data--------------------------------------------//
+  // static Future<List<SocietyEve>> fetchSocietyDataFromLocalStorage(String items) async {
+  //   final storage = FlutterSecureStorage();
+  //   log("Checking local storage for events data...");
+  //
+  //     String? localData = await storage.read(key: items);
+  //
+  //     if (localData != null && localData.isNotEmpty) {
+  //       log("Data found in local storage, populating ${items} events list...");
+  //
+  //       try {
+  //         // Parse local data and populate the artists list
+  //         List<dynamic> jsonData = jsonDecode(localData);
+  //         societyevents = jsonData.map((data) => SocietyEve.fromJson(data)).toList();
+  //
+  //         log('Loaded ${societyevents.length} events from local storage.');
+  //       } catch (e) {
+  //         log('Error parsing local storage data: $e');
+  //       }
+  //     } else {
+  //       log("No data found in local storage, fetching from Firebase...");
+  //
+  //       try {
+  //         final querySnapshot = await FirebaseFirestore.instance
+  //             .collection(items)
+  //             .get();
+  //
+  //         List<SocietyEve> fetchedEvents = [];
+  //         for (var doc in querySnapshot.docs) {
+  //           try {
+  //             var jsonData = doc.data();
+  //             log('Document Data: $jsonData');
+  //
+  //             // Convert jsonData into an Artists object
+  //             SocietyEve events = SocietyEve.fromJson(jsonData);
+  //             fetchedEvents.add(events);
+  //           } catch (e) {
+  //             log('Error while parsing document: $e');
+  //           }
+  //         }
+  //
+  //         // Update the artists list with fetched data
+  //         societyevents = fetchedEvents;
+  //
+  //         // Store the fetched data in local storage
+  //         await storage.write(key: items, value: jsonEncode(societyevents.map((event) => event.toJson()).toList()));
+  //         log('Fetched ${societyevents.length} event from Firebase and stored in local storage.');
+  //       } on FirebaseException catch (e) {
+  //         log('FirebaseException: ${e.message}');
+  //       } catch (e) {
+  //         log('Error fetching documents: $e');
+  //       }
+  //   }
+  //
+  //     return societyevents;
+  //
+  // }
+
+  //--------------FETCH ALL SocietyEvents Data--------------------------------------------//
+  static Future<void> fetchSocietyData() async {
+    final storage = FlutterSecureStorage();
+    log("Checking local storage for events data...");
+
+    List<String> societylist = ["AMS" , "GeneticX" , "Nirmiti" , "Rangtarangini" , "Virtuosi" , "sarasva"];
+    List<SocietyEve>societyevents =[] ;
+
+
+    for(String items in societylist){
+        String? localData = await storage.read(key: items);
+
+        if (localData != null && localData.isNotEmpty) {
+          log("Data found in local storage, populating ${items} events list...");
+
+          try {
+            // Parse local data and populate the artists list
+            List<dynamic> jsonData = jsonDecode(localData);
+            societyevents = jsonData.map((data) => SocietyEve.fromJson(data)).toList();
+
+            log('Loaded ${societyevents.length} events from local storage.');
+          } catch (e) {
+            log('Error parsing local storage data: $e');
+          }
+        } else {
+          log("No data found in local storage, fetching from Firebase...");
+
+          try {
+            final querySnapshot = await FirebaseFirestore.instance
+                .collection(items)
+                .get();
+
+            List<SocietyEve> fetchedEvents = [];
+            for (var doc in querySnapshot.docs) {
+              try {
+                var jsonData = doc.data();
+                log('Document Data: $jsonData');
+
+                // Convert jsonData into an Artists object
+                SocietyEve events = SocietyEve.fromJson(jsonData);
+                fetchedEvents.add(events);
+              } catch (e) {
+                log('Error while parsing document: $e');
+              }
+            }
+
+            // Update the artists list with fetched data
+            societyevents = fetchedEvents;
+
+            // Store the fetched data in local storage
+            await storage.write(key: items, value: jsonEncode(societyevents.map((event) => event.toJson()).toList()));
+            log('Fetched ${societyevents.length} event from Firebase and stored in local storage.');
+          } on FirebaseException catch (e) {
+            log('FirebaseException: ${e.message}');
+          } catch (e) {
+            log('Error fetching documents: $e');
+          }
+        }
+
+        societyeventslist.add(societyevents);
+    }
+
+  }
 
 //--------------FETCH ALL Events Data--------------------------------------------//
   static Future<List<Events>> fetcheventsData() async {

@@ -17,13 +17,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Artists>> artistDataFuture; // Declare a future variable to hold artist data
-  late Future<List<Events>> eventsDataFuture; // Declare a future variable to hold artist data
+  late Future<List<Events>> eventsDataFuture;
+  List<String> societylist = ["AMS" , "GeneticX" , "Nirmiti" , "Rangtarangini" , "Virtuosi" , "sarasva"];
 
   @override
   void initState() {
     super.initState();
     artistDataFuture = APIs.fetchArtistData(); // Initialize the future in initState
-    eventsDataFuture = APIs.fetcheventsData(); // Initialize the future in initState
+    eventsDataFuture = APIs.fetcheventsData();
+    APIs.fetchSocietyData();// Initialize the future in initState
   }
 
   @override
@@ -105,36 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            FutureBuilder<List<Artists>>(
-              future: artistDataFuture, // Use the initialized future
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
-                if (snapshot.hasData) {
-                  return SocietyCarousel(data: snapshot.data!); // Pass the data to the carousel slider
-                }
-                return const SizedBox(); // Return an empty box if there's no data
-              },
-            ),
-            // FutureBuilder<List<Events>>(
-            //   future: eventsDataFuture, // Use the initialized future
-            //   builder: (context, snapshot) {
-            //     if (snapshot.connectionState == ConnectionState.waiting) {
-            //       return Center(child: CircularProgressIndicator());
-            //     }
-            //     if (snapshot.hasError) {
-            //       return Center(child: Text('Error: ${snapshot.error}'));
-            //     }
-            //     if (snapshot.hasData) {
-            //       return MovieCardWidget(data: snapshot.data!); // Pass the data to the carousel slider
-            //     }
-            //     return const SizedBox(); // Return an empty box if there's no data
-            //   },
-            // ),
+            SocietyCarousel(data: societylist)
           ],
         ),
       ),

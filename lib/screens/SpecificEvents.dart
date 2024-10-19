@@ -23,7 +23,7 @@ class _SpecificEventState extends State<SpecificEvent> {
     });
 
     try {
-      await APIs.fetchAllHeads();
+      await APIs.test();
     } catch (e) {
       // Handle any errors if needed
     } finally {
