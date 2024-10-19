@@ -1,8 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pavilion/database/Apis.dart';
 import 'package:pavilion/screens/event_screen.dart';
 
+/*
+This page shows the list of all socity which has 6 block 
+which indeed has list of event of the partiual socity 
+which indeed when clickeck shows  teh event details page 
+
+
+EVENTS PAGE IT IS
+*/
 class AllSocietyScreen extends StatefulWidget {
   @override
   State<AllSocietyScreen> createState() => _AllSocietyScreenState();
@@ -45,14 +54,20 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
     "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg"
   ];
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text(
-          "Society",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          "Events",
+          style: GoogleFonts.dmSans(
+            textStyle: const TextStyle(
+              fontSize: 28.0, // Increased font size
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         backgroundColor: Colors.black,
       ),
@@ -73,69 +88,79 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => EventScreen(list: APIs.societyeventslist[index], item: societyList[index]["name"]!), // Replace with your EventScreen widget
+                    builder: (context) => EventScreen(
+                      list: APIs.societyeventslist[index],
+                      item: societyList[index]["name"]!,
+                    ), // Replace with your EventScreen widget
                   ),
                 );
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.0),
-                  color: Colors.black,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(16.0),
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrls[index],
-                        height: 100,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => Container(
-                          height: 100,
-                          color: Colors.grey[200],
-                          child: const Center(
-                            child: CircularProgressIndicator(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 2), // Added horizontal padding
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
+                    color: Colors.black,
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(16.0),
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrls[index],
+                          height: 85,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Container(
+                            height: 100,
+                            color: Colors.grey[200],
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            height: 100,
+                            color: Colors.grey[200],
+                            child: const Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
-                        errorWidget: (context, url, error) => Container(
-                          height: 100,
-                          color: Colors.grey[200],
-                          child: const Icon(
-                            Icons.error,
-                            color: Colors.red,
+                      ),
+                      const SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          societyList[index]["name"]!,
+                          style: GoogleFonts.dmSans(
+                            textStyle: const TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          societyList[index]["description"]!,
+                          style: GoogleFonts.dmSans(
+                            textStyle: const TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.white70,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        societyList[index]["name"]!,
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        societyList[index]["description"]!,
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );
