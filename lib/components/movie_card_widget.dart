@@ -3,7 +3,6 @@ import 'package:carousel_slider_plus/carousel_options.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pavilion/models/events.dart';
-
 import '../screens/SpecificEvents.dart';
 
 class MovieCardWidget extends StatelessWidget {
@@ -20,15 +19,25 @@ class MovieCardWidget extends StatelessWidget {
       itemBuilder: (context, index, realIndex) {
         final event = data[index]; // Get the current event
         return InkWell(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (_)=>SpecificEvent(image: data[index].image ?? '', title: data[index].title ?? '', des: data[index].des ?? '', venue: data[index].venue ?? '',)));
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => SpecificEvent(
+                  image: event.image ?? '',
+                  title: event.title ?? '',
+                  des: event.des ?? '',
+                  venue: event.venue ?? '',
+                ),
+              ),
+            );
           },
           child: Container(
             width: MediaQuery.of(context).size.width * 0.8, // Make the width relative to screen size
             margin: const EdgeInsets.symmetric(horizontal: 8.0),
             padding: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: const Color(0xFF242424), // Set the background color
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
@@ -63,6 +72,8 @@ class MovieCardWidget extends StatelessWidget {
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
+                          color: Colors.white, // Set text color to white
+                          fontFamily: 'Poppins', // Set font family to Poppins
                         ),
                         maxLines: 1, // Limit to a single line to prevent overflow
                         overflow: TextOverflow.ellipsis, // Handle text overflow
@@ -72,7 +83,8 @@ class MovieCardWidget extends StatelessWidget {
                         event.venue, // Display the event venue
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.grey[600],
+                          color: const Color.fromARGB(255, 118, 117, 117), // Set text color to white
+                          fontFamily: 'Poppins', // Set font family to Poppins
                         ),
                         maxLines: 1, // Limit to a single line to prevent overflow
                         overflow: TextOverflow.ellipsis, // Handle text overflow
@@ -92,7 +104,7 @@ class MovieCardWidget extends StatelessWidget {
         enableInfiniteScroll: true, // Allows infinite scrolling
         autoPlay: true, // Automatically scrolls through items
         autoPlayInterval: const Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: delay),// Set autoplay duration
+        autoPlayAnimationDuration: Duration(milliseconds: delay), // Set autoplay duration
         viewportFraction: 0.8, // How much of the screen each item should take
       ),
     );

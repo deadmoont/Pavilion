@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pavilion/screens/AllSocietyScreen.dart';
 import 'package:pavilion/screens/TeamsPage.dart';
+import 'package:pavilion/screens/loadingScreen.dart';
 import 'package:pavilion/screens/merchScreen.dart';
 import 'package:pavilion/screens/profileScreen.dart';
 import 'package:pavilion/screens/timelineScreen.dart';
@@ -20,14 +21,14 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
 
   final List<Widget> _pages = [
-    HomeScreen(),
-    PhotowallScreen(),
-    TeamPage(),
     AllSocietyScreen(),
-    ProfileScreen(),
+    const Timeline(),
+    const HomeScreen(),
+    const PhotowallScreen(),
+    Loadingscreen(),
   ];
 
   void _onItemSelected(int index) {
@@ -44,24 +45,24 @@ class _BottomNavState extends State<BottomNav> {
         selectedIndex: _currentIndex,
         items: [
           BottomBarItem(
-            iconBuilder: (color) => _buildIcon("assets/svgIcons/home_unselect.svg", "assets/images/effervescense_logo.png", 0, 37),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/events_unselect.svg", "assets/svgIcons/events_select.svg", 0, 34),
           ),
           BottomBarItem(
-            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/events_unselect.svg", "assets/svgIcons/events_select.svg", 1, 37),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/timeline_select.svg", "assets/svgIcons/timeline_real_select.svg", 1, 30),
           ),
           BottomBarItem(
-            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/reels_notselect.svg", "assets/svgIcons/reels_select.svg", 2, 30),
+            iconBuilder: (color) => _buildIcon("assets/svgIcons/home_unselect.svg", "assets/images/effervescense_logo.png", 2, 37),
           ),
           BottomBarItem(
-            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/timeline_select.svg", "assets/svgIcons/timeline_real_select.svg", 3, 33),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/reels_notselect.svg", "assets/svgIcons/reels_select.svg", 3, 25),
           ),
           BottomBarItem(
-            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/about_unselect.svg", "assets/svgIcons/about_select.svg", 4, 37),
+            iconBuilder: (color) => _buildSvgIcon("assets/svgIcons/about_unselect.svg", "assets/svgIcons/about_select.svg", 4, 34),
           ),
         ],
         circle1Color: Colors.blueAccent,
-        backgroundColor: Color.fromRGBO(39, 29, 29, 1),
-        color: Color.fromRGBO(238, 66, 116, 1),
+        backgroundColor: const Color.fromRGBO(39, 29, 29, 1),
+        color: const Color.fromRGBO(238, 66, 116, 1),
         bubbleSize: 40,
         onSelect: _onItemSelected,
       ),
@@ -73,7 +74,7 @@ class _BottomNavState extends State<BottomNav> {
 
     return SvgPicture.asset(
       _currentIndex == index ? selectedSvg : defaultSvg,
-      color: _currentIndex == index ? Color.fromRGBO(238, 66, 116, 1) : Colors.grey, // Optional: tint color based on selection
+      color: _currentIndex == index ? const Color.fromRGBO(238, 66, 116, 1) : Colors.grey, // Optional: tint color based on selection
       width: size,
       height: size,
     );

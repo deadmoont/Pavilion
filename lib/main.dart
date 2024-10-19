@@ -5,6 +5,7 @@ import 'package:pavilion/Bottom%20Nav/bottom_nav.dart';
 import 'package:pavilion/firebase_options.dart';
 import 'package:pavilion/screens/event_details.dart';
 import 'package:pavilion/screens/home_screen.dart';
+import 'package:pavilion/screens/merchScreen.dart';
 import 'package:pavilion/screens/reelsPage.dart';
 import 'package:pavilion/screens/sponsors_page.dart';
 import 'api/notif_api.dart';

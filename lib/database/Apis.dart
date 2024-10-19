@@ -16,6 +16,9 @@ class APIs {                   //google user
   static List<Merch> merchList = []; // Add a static list to hold artists
   static List<Events> eventsList = []; // Add a static list to hold artists
   static List<List<SocietyEve>> societyeventslist = []; // Add a static list to hold artists
+  List<Sponsors> sponsors = [];
+  List<Map<String, Map<String, Map<String, String>>>> timeline = [];
+  List<String> photowall = [];
 
   //--------------FETCH ALL Particular society Data--------------------------------------------//
   // static Future<List<SocietyEve>> fetchSocietyDataFromLocalStorage(String items) async {
@@ -363,8 +366,9 @@ class APIs {                   //google user
 
   }
 
-  static Future<List<Map<String, Map<String, Map<String, String>>>>> fetchTimeLine() async {
-    List<Map<String, Map<String, Map<String, String>>>> timeline = [];
+   Future<List<Map<String, Map<String, Map<String, String>>>>> fetchTimeLine() async {
+    if(timeline.length == 0){
+      List<Map<String, Map<String, Map<String, String>>>> timelineList = [];
 
     try {
       // Fetch the document snapshot from Firestore
@@ -400,18 +404,22 @@ class APIs {                   //google user
           });
 
           // Add day with its events to the timeline
-          timeline.add({dayKey: events});
+          timelineList.add({dayKey: events});
         }
       }
     } catch (e) {
       log("Error in getting timeline: $e");
     }
 
-    return timeline;
+    return timelineList;
+    }else{
+      return timeline;
+    }
   }
 
-  static Future<List<Sponsors>> fetchSponsors() async {
-    List<Sponsors> sponsorsList = [];
+   Future<List<Sponsors>> fetchSponsors() async {
+    if(sponsors.length == 0){
+      List<Sponsors> sponsorsList = [];
     try {
       QuerySnapshot snapshot = await FirebaseFirestore.instance.collection("sponsor").get();
 
@@ -424,10 +432,14 @@ class APIs {                   //google user
       print("Failed to get sponsors: $e");
     }
     return sponsorsList;
+    }else{
+      return sponsors;
+    }
   }
 
-  static Future<List<String>> fetchPhotoWall() async {
-    try {
+   Future<List<String>> fetchPhotoWall() async {
+    if(photowall.length == 0){
+      try {
       // Fetch all documents in the 'photo wall' collection
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('photowall')
@@ -442,6 +454,9 @@ class APIs {                   //google user
     } catch (e) {
       print('Error fetching photo wall: $e');
       return [];  // Return an empty list in case of error
+    }
+    }else{
+      return photowall;
     }
   }
 }

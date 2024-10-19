@@ -11,9 +11,11 @@ class _SponsorPageState extends State<SponsorPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-
-        title: Text('Sponsors',style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.black,
+        title: Text(
+          'Sponsors',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: const Color(0xFF121212),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -22,17 +24,20 @@ class _SponsorPageState extends State<SponsorPage> {
             SponsorCard(
               name: 'Company A',
               description: 'Leading industry in tech solutions.',
-              logoUrl: 'https://tse2.mm.bing.net/th?id=OIP.6VHUPJ1Pqa37XcPSmuloPwHaDt&pid=Api&P=0&h=180',
+              logoUrl:
+                  'https://tse2.mm.bing.net/th?id=OIP.6VHUPJ1Pqa37XcPSmuloPwHaDt&pid=Api&P=0&h=180',
             ),
             SponsorCard(
               name: 'Company B',
               description: 'Innovative products for everyday life.',
-              logoUrl: 'https://tse2.mm.bing.net/th?id=OIP.6VHUPJ1Pqa37XcPSmuloPwHaDt&pid=Api&P=0&h=180',
+              logoUrl:
+                  'https://tse2.mm.bing.net/th?id=OIP.6VHUPJ1Pqa37XcPSmuloPwHaDt&pid=Api&P=0&h=180',
             ),
             SponsorCard(
               name: 'Company C',
               description: 'Your trusted partner in growth.',
-              logoUrl: 'https://tse2.mm.bing.net/th?id=OIP.6VHUPJ1Pqa37XcPSmuloPwHaDt&pid=Api&P=0&h=180',
+              logoUrl:
+                  'https://tse2.mm.bing.net/th?id=OIP.6VHUPJ1Pqa37XcPSmuloPwHaDt&pid=Api&P=0&h=180',
             ),
           ],
         ),

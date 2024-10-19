@@ -7,6 +7,7 @@ import 'package:pavilion/models/artists.dart';
 import 'package:pavilion/models/events.dart';
 import 'package:pavilion/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart'; // Import Google Fonts
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,27 +17,36 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Artists>> artistDataFuture; // Declare a future variable to hold artist data
+  late Future<List<Artists>>
+      artistDataFuture; // Declare a future variable to hold artist data
   late Future<List<Events>> eventsDataFuture;
-  List<String> societylist = ["AMS" , "GeneticX" , "Nirmiti" , "Rangtarangini" , "Virtuosi" , "sarasva"];
+  List<String> societylist = [
+    "AMS",
+    "GeneticX",
+    "Nirmiti",
+    "Rangtarangini",
+    "Virtuosi",
+    "sarasva"
+  ];
 
   @override
   void initState() {
     super.initState();
-    artistDataFuture = APIs.fetchArtistData(); // Initialize the future in initState
+    artistDataFuture =
+        APIs.fetchArtistData(); // Initialize the future in initState
     eventsDataFuture = APIs.fetcheventsData();
-    APIs.fetchSocietyData();// Initialize the future in initState
+    APIs.fetchSocietyData(); // Initialize the future in initState
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constants.BLACK,
+      backgroundColor: const Color(0xFF121212),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 130),
             FutureBuilder<List<Artists>>(
               future: artistDataFuture, // Use the initialized future
               builder: (context, snapshot) {
@@ -47,25 +57,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
                 if (snapshot.hasData) {
-                  return CustomCarouselSlider(data: snapshot.data!); // Pass the data to the carousel slider
+                  return CustomCarouselSlider(
+                      data: snapshot
+                          .data!); // Pass the data to the carousel slider
                 }
                 return const SizedBox(); // Return an empty box if there's no data
               },
             ),
             const SizedBox(height: 20),
-            Text(
-              "Events",
-              style: TextStyle(
-                color: Color(0xFFF802AC),
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 20.0), // Align text to the left
+                child: Text(
+                  "Events",
+                  style: GoogleFonts.spaceGrotesk(
+                    // Use Space Grotesk font
+                    color: const Color(0xFFFAFAFA), // Set color to FAFAFA
+                    fontSize: 30, // Reduce font size slightly
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 5),
-            SizedBox(
-              height: 20,
-              // child: MovieCardWidget(),
-            ),
+            const SizedBox(height: 15),
             FutureBuilder<List<Events>>(
               future: eventsDataFuture, // Use the initialized future
               builder: (context, snapshot) {
@@ -76,7 +92,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
                 if (snapshot.hasData) {
-                  return MovieCardWidget(data: snapshot.data!, delay: 1200, rev: false,); // Pass the data to the carousel slider
+                  return MovieCardWidget(
+                      data: snapshot.data!,
+                      delay: 1200,
+                      rev: false); // Pass the data to the carousel slider
                 }
                 return const SizedBox(); // Return an empty box if there's no data
               },
@@ -92,22 +111,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
                 if (snapshot.hasData) {
-                  return MovieCardWidget(data: snapshot.data!, delay: 2000, rev: true,); // Pass the data to the carousel slider
+                  return MovieCardWidget(
+                      data: snapshot.data!,
+                      delay: 2000,
+                      rev: true); // Pass the data to the carousel slider
                 }
                 return const SizedBox(); // Return an empty box if there's no data
               },
             ),
             const SizedBox(height: 20), // Added some spacing for clarity
-            Text(
-              "Society Events",
-              style: TextStyle(
-                color: Color(0xFFF802AC),
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(left: 20.0), // Align text to the left
+                child: Text(
+                  "Society Events",
+                  style: GoogleFonts.spaceGrotesk(
+                    // Use Space Grotesk font
+                    color: const Color(0xFFFAFAFA), // Set color to FAFAFA
+                    fontSize: 30, // Reduce font size slightly
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            SocietyCarousel(data: societylist)
+            SocietyCarousel(data: societylist),
           ],
         ),
       ),

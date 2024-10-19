@@ -14,6 +14,7 @@ class Timeline extends StatefulWidget {
 class _TimelineState extends State<Timeline> {
   List<Map<String, Map<String, Map<String, String>>>> timeline = [];
   bool isLoading = true;
+  final api = APIs();
 
   @override
   void initState() {
@@ -23,7 +24,7 @@ class _TimelineState extends State<Timeline> {
 
   void fetch() async {
     // Fetch data from Firebase via your API
-    List<Map<String, Map<String, Map<String, String>>>> temp = await APIs.fetchTimeLine();
+    List<Map<String, Map<String, Map<String, String>>>> temp = await api.fetchTimeLine();
 
     // Log the fetched data to debug
     log("Fetched timeline: ${jsonEncode(temp)}");

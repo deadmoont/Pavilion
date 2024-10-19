@@ -4,7 +4,6 @@ import 'package:pavilion/models/SocietyEvents.dart';
 import '../components/event_card.dart';
 import '../models/event_model.dart';
 
-
 class EventScreen extends StatefulWidget {
   final String item;
   final List<SocietyEve> list;
@@ -16,13 +15,12 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF121212),
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
@@ -46,7 +44,6 @@ class _EventScreenState extends State<EventScreen> {
           return EventCard(event: widget.list[index]);
         },
       ),
-
     );
   }
 }
