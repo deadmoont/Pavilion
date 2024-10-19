@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:pavilion/components/Detailcard.dart';
 import 'package:pavilion/screens/SpecificEvents.dart';
 
 import '../models/artists.dart';
@@ -37,16 +40,9 @@ class CustomCarouselSlider extends StatelessWidget {
                       16), // Match the border radius with ClipRRect
                 ),
                 child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => SpecificEvent(
-                                  image: imageUrl,
-                                  title: data[index].name ?? '',
-                                  des: data[index].desc ?? '',
-                                  venue: data[index].venue ?? '',
-                                )));
+                  onTap: (){
+                    // log("hello reel url :  ${data[index].reels}");
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=>Detailcard(videoUrl: data[index].reels, title: data[index].name, des: data[index].desc, venue: data[index].venue,)));
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(

@@ -5,8 +5,17 @@ import 'package:flutter/services.dart';
 
 class Detailcard extends StatefulWidget {
   final String videoUrl;
-  final VoidCallback onVideoEnd; // Callback for video end
-  const Detailcard({Key? key, required this.videoUrl, required this.onVideoEnd}) : super(key: key);
+  final String title;
+  final String des;
+  final String venue;
+
+  const Detailcard({
+    Key? key,
+    required this.videoUrl,
+    required this.title,
+    required this.des,
+    required this.venue,
+  }) : super(key: key);
 
   @override
   State<Detailcard> createState() => _DetailcardState();
@@ -15,6 +24,7 @@ class Detailcard extends StatefulWidget {
 class _DetailcardState extends State<Detailcard> with AutomaticKeepAliveClientMixin {
   late VideoPlayerController _videoController;
   late ChewieController _chewieController;
+  bool _isVideoLoading = true; // Flag to check if the video is loading
 
   @override
   void initState() {
@@ -31,17 +41,19 @@ class _DetailcardState extends State<Detailcard> with AutomaticKeepAliveClientMi
     _chewieController = ChewieController(
       videoPlayerController: _videoController,
       autoInitialize: true,
-      looping: false,
-      aspectRatio: 1/2,
+      looping: true,
+      aspectRatio: 1 / 2,
       allowMuting: true,
       allowPlaybackSpeedChanging: true,
       showControlsOnInitialize: false,
     );
 
-    _videoController.addListener(() {
-      if (_videoController.value.position == _videoController.value.duration) {
-        widget.onVideoEnd();
-      }
+    // Start playing the video as soon as it is initialized
+    _videoController.initialize().then((_) {
+      setState(() {
+        _isVideoLoading = false; // Video has finished loading
+        _videoController.play();
+      });
     });
   }
 
@@ -63,8 +75,23 @@ class _DetailcardState extends State<Detailcard> with AutomaticKeepAliveClientMi
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: Chewie(
-          controller: _chewieController,
+        child: Container(
+          margin: const EdgeInsets.only(top: 60, right: 10, left: 10, bottom: 20), // Margin from all sides
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.white, width: 2.0), // White border with 2.0 width
+            borderRadius: BorderRadius.circular(8.0), // Rounded corners for the container
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0), // Ensure video respects border radius
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Chewie(controller: _chewieController),
+                if (_isVideoLoading)
+                  const CircularProgressIndicator(color: Colors.white,), // Show loader while the video is loading
+              ],
+            ),
+          ),
         ),
       ),
     );
