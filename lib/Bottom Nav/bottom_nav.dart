@@ -3,6 +3,7 @@ import 'package:bottom_bar_matu/bottom_bar_double_bullet/bottom_bar_double_bulle
 import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pavilion/screens/AllSocietyScreen.dart';
 import 'package:pavilion/screens/TeamsPage.dart';
 import 'package:pavilion/screens/merchScreen.dart';
 import 'package:pavilion/screens/profileScreen.dart';
@@ -25,7 +26,7 @@ class _BottomNavState extends State<BottomNav> {
     HomeScreen(),
     PhotowallScreen(),
     TeamPage(),
-    Timeline(),
+    AllSocietyScreen(),
     ProfileScreen(),
   ];
 
