@@ -26,6 +26,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -55,16 +58,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           alignment: Alignment.center,
           child: Center(
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               width: double.infinity,
-              height: 600,
+              height: screenHeight * 0.75, // Adjusted to a percentage of screen height
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/background.jpeg'), // Use your asset image here
-                  fit: BoxFit.cover, // Adjust the image fit as needed
+                  image: AssetImage('assets/images/background.jpeg'),
+                  fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.9), // Adjust the opacity here (0.0 to 1.0)
-                    BlendMode.dstATop, // Choose a blending mode
+                    Colors.black.withOpacity(0.9),
+                    BlendMode.dstATop,
                   ),
                 ),
                 borderRadius: BorderRadius.circular(20),
@@ -72,14 +75,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Stack(
                 children: [
                   Positioned(
-                    top: 10,
-                    left: 10,
-                    right: 10,
+                    top: screenHeight * 0.02, // Adjusted position based on screen height
+                    left: screenWidth * 0.05,
+                    right: screenWidth * 0.05,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Container(
-                        width: 300,
-                        height: 150,
+                        width: double.infinity,
+                        height: screenHeight * 0.2, // Responsive height for image container
                         child: CachedNetworkImage(
                           imageUrl:
                           "https://tse4.mm.bing.net/th?id=OIP._NeG9n7B41ih3dDn92Aw3AHaE8&pid=Api&P=0&h=180",
@@ -102,111 +105,139 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Positioned(
-                    top: 180,
-                    left: 10,
-                    right: 10,
+                    top: screenHeight * 0.28, // Responsive position
+                    left: screenWidth * 0.05,
+                    right: screenWidth * 0.05,
                     child: Align(
                       alignment: Alignment.center,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                         child: Text(
                           'Effervescence: Magic meets Mystery',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: screenWidth * 0.05, // Responsive font size
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 210,
-                    left: 10,
-                    right: 10,
+                    top: screenHeight * 0.33,
+                    left: screenWidth * 0.05,
+                    right: screenWidth * 0.05,
                     child: Align(
                       alignment: Alignment.center,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 30),
+                        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                         child: Text(
                           'IIITA welcomes you to the Biggest Cultural festival of the North',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 15, color: Colors.black45),
+                            fontSize: screenWidth * 0.04,
+                            color: Colors.black45,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 280,
+                    top: screenHeight * 0.4,
                     left: 0,
                     right: 0,
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
-                        height: 350,
-                        width: 300,
+                        height: screenHeight * 0.45, // Adjusted scrollable container height
+                        width: screenWidth * 0.8, // Responsive width for scrollable content
                         child: SingleChildScrollView(
                           child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Row(
                                 children: [
-                                  Expanded(
+                                  Flexible(
                                     child: ListTile(
-                                      title: Text("Name",
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: 15)),
-                                      subtitle: Text("Mokshe Jain",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 20)),
+                                      title: Text(
+                                        "Name",
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: screenWidth * 0.04, // Responsive font
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "Mokshe Jain",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: screenWidth * 0.05,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(width: 10),
-                                  Expanded(
+                                  SizedBox(width: screenWidth * 0.05),
+                                  Flexible(
                                     child: ListTile(
-                                      title: Text("Order Number",
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: 15)),
-                                      subtitle: Text("CL9738PL",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 20)),
+                                      title: Text(
+                                        "Order Number",
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: screenWidth * 0.04,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "CL9738PL",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: screenWidth * 0.05,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  Expanded(
+                                  Flexible(
                                     child: ListTile(
-                                      title: Text("Begin-Date",
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: 15)),
-                                      subtitle: Text("Oct 24 2024",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 20)),
+                                      title: Text(
+                                        "Begin-Date",
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: screenWidth * 0.04,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "Oct 24 2024",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: screenWidth * 0.05,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(width: 10),
-                                  Expanded(
+                                  SizedBox(width: screenWidth * 0.05),
+                                  Flexible(
                                     child: ListTile(
-                                      title: Text("End-Date",
-                                          style: TextStyle(
-                                              color: Colors.black45,
-                                              fontSize: 15)),
-                                      subtitle: Text("Oct 27 2024",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                              fontSize: 20)),
+                                      title: Text(
+                                        "End-Date",
+                                        style: TextStyle(
+                                          color: Colors.black45,
+                                          fontSize: screenWidth * 0.04,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        "Oct 27 2024",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: screenWidth * 0.05,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
