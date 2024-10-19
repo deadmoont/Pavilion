@@ -17,6 +17,7 @@ class APIs {                   //google user
   static List<Events> eventsList = []; // Add a static list to hold artists
   static List<List<SocietyEve>> societyeventslist = []; // Add a static list to hold artists
   List<Sponsors> sponsors = [];
+  List<Map<String, Map<String, Map<String, String>>>> timeline = [];
   List<String> photowall = [];
 
   //--------------FETCH ALL Particular society Data--------------------------------------------//
@@ -365,8 +366,9 @@ class APIs {                   //google user
 
   }
 
-  Future<List<Map<String, Map<String, Map<String, String>>>>> fetchTimeLine() async {
-    List<Map<String, Map<String, Map<String, String>>>> timelineList = [];
+   Future<List<Map<String, Map<String, Map<String, String>>>>> fetchTimeLine() async {
+    if(timeline.length == 0){
+      List<Map<String, Map<String, Map<String, String>>>> timelineList = [];
 
     try {
       // Fetch the document snapshot from Firestore
@@ -410,9 +412,12 @@ class APIs {                   //google user
     }
 
     return timelineList;
+    }else{
+      return timeline;
+    }
   }
 
-  Future<List<Sponsors>> fetchSponsors() async {
+   Future<List<Sponsors>> fetchSponsors() async {
     if(sponsors.length == 0){
       List<Sponsors> sponsorsList = [];
     try {
@@ -432,7 +437,7 @@ class APIs {                   //google user
     }
   }
 
-  Future<List<String>> fetchPhotoWall() async {
+   Future<List<String>> fetchPhotoWall() async {
     if(photowall.length == 0){
       try {
       // Fetch all documents in the 'photo wall' collection

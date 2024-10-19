@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 130),
             FutureBuilder<List<Artists>>(
               future: artistDataFuture, // Use the initialized future
               builder: (context, snapshot) {
