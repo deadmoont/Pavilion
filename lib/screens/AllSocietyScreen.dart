@@ -21,27 +21,33 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
   List<Map<String, String>> societyList = [
     {
       "name": "AMS",
-      "description": "A society dedicated to capturing moments through the lens, focusing on photography and videography."
+      "description":
+          "A society dedicated to capturing moments through the lens, focusing on photography and videography."
     },
     {
       "name": "GeneticX",
-      "description": "A dynamic dance group that explores various dance forms and promotes self-expression through movement."
+      "description":
+          "A dynamic dance group that explores various dance forms and promotes self-expression through movement."
     },
     {
       "name": "Nirmiti",
-      "description": "A creative club for fine arts enthusiasts, nurturing skills in painting, sketching, and other artistic expressions."
+      "description":
+          "A creative club for fine arts enthusiasts, nurturing skills in painting, sketching, and other artistic expressions."
     },
     {
       "name": "Rangtarangini",
-      "description": "A drama society that brings stories to life through acting, theater performances, and stage plays."
+      "description":
+          "A drama society that brings stories to life through acting, theater performances, and stage plays."
     },
     {
       "name": "Virtuosi",
-      "description": "A music group that celebrates the art of sound, providing a platform for singers, instrumentalists, and music lovers."
+      "description":
+          "A music group that celebrates the art of sound, providing a platform for singers, instrumentalists, and music lovers."
     },
     {
       "name": "Sarasva",
-      "description": "A literary club that encourages reading, writing, debates, and discussions, fostering a love for literature."
+      "description":
+          "A literary club that encourages reading, writing, debates, and discussions, fostering a love for literature."
     },
   ];
 
@@ -54,11 +60,12 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
     "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg"
   ];
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
+        backgroundColor: const Color(0xFF121212),
         title: Text(
           "Events",
           style: GoogleFonts.dmSans(
@@ -69,7 +76,6 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
             ),
           ),
         ),
-        backgroundColor: Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -96,7 +102,8 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 2), // Added horizontal padding
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 4.0, vertical: 2), // Added horizontal padding
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),

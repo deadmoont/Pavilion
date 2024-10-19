@@ -25,9 +25,9 @@ class _BottomNavState extends State<BottomNav> {
 
   final List<Widget> _pages = [
     AllSocietyScreen(),
-    Timeline(),
-    HomeScreen(),
-    PhotowallScreen(),
+    const Timeline(),
+    const HomeScreen(),
+    const PhotowallScreen(),
     Loadingscreen(),
   ];
 
@@ -61,8 +61,8 @@ class _BottomNavState extends State<BottomNav> {
           ),
         ],
         circle1Color: Colors.blueAccent,
-        backgroundColor: Color.fromRGBO(39, 29, 29, 1),
-        color: Color.fromRGBO(238, 66, 116, 1),
+        backgroundColor: const Color.fromRGBO(39, 29, 29, 1),
+        color: const Color.fromRGBO(238, 66, 116, 1),
         bubbleSize: 40,
         onSelect: _onItemSelected,
       ),
@@ -74,7 +74,7 @@ class _BottomNavState extends State<BottomNav> {
 
     return SvgPicture.asset(
       _currentIndex == index ? selectedSvg : defaultSvg,
-      color: _currentIndex == index ? Color.fromRGBO(238, 66, 116, 1) : Colors.grey, // Optional: tint color based on selection
+      color: _currentIndex == index ? const Color.fromRGBO(238, 66, 116, 1) : Colors.grey, // Optional: tint color based on selection
       width: size,
       height: size,
     );

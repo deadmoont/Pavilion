@@ -57,6 +57,7 @@ dependencies:
   bottom_bar_matu: ^1.5.0
   animate_gradient: ^0.0.3
   curved_navigation_bar:
+  liquid_pull_to_refresh: ^3.0.1
 
 dev_dependencies:
   flutter_test:

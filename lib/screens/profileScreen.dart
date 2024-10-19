@@ -30,9 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF121212),
         leading: Icon(Icons.arrow_back, color: Colors.white),
         title: Text("Profile Page", style: TextStyle(color: Colors.white)),
       ),

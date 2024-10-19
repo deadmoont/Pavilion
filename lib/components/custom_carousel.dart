@@ -16,7 +16,7 @@ class CustomCarouselSlider extends StatelessWidget {
 
     return SizedBox(
       width: size.width,
-      height: (size.height * 0.33 < 200) ? 200 : size.height * 0.33,
+      height: (size.height * 0.33 < 200) ? 200 : size.height * 0.23,
       child: CarouselSlider.builder(
         itemCount: data.length, // Use the length of the data list
         itemBuilder: (BuildContext context, int index, int realIndex) {
@@ -25,23 +25,42 @@ class CustomCarouselSlider extends StatelessWidget {
 
           return GestureDetector(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(
+                  16), // Rounded corners for the container
               child: Container(
                 width: double.infinity,
                 height: 200,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 2), // Add a white border
-                  borderRadius: BorderRadius.circular(20), // Match the border radius with ClipRRect
+                  border: Border.all(
+                      color: Colors.white, width: 2), // Add a white border
+                  borderRadius: BorderRadius.circular(
+                      16), // Match the border radius with ClipRRect
                 ),
                 child: InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>SpecificEvent(image: imageUrl, title: data[index].name ?? '', des: data[index].desc ?? '', venue: data[index].venue ?? '',)));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => SpecificEvent(
+                                  image: imageUrl,
+                                  title: data[index].name ?? '',
+                                  des: data[index].desc ?? '',
+                                  venue: data[index].venue ?? '',
+                                )));
                   },
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrl.isNotEmpty ? imageUrl : "fallback_image_url", // Provide a fallback image if URL is empty
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(
+                        16), // Apply rounded corners to the image itself
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl.isNotEmpty
+                          ? imageUrl
+                          : "fallback_image_url", // Provide a fallback image if URL is empty
+                      fit:
+                          BoxFit.cover, // Ensure the image covers the container
+                      placeholder: (context, url) =>
+                          Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
                   ),
                 ),
               ),
@@ -49,7 +68,7 @@ class CustomCarouselSlider extends StatelessWidget {
           );
         },
         options: CarouselOptions(
-          height: (size.height * 0.33 < 200) ? 200 : size.height * 0.33,
+          height: (size.height * 0.33 < 200) ? 200 : size.height * 0.23,
           aspectRatio: 16 / 9,
           reverse: false,
           initialPage: 0,

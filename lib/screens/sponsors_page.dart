@@ -13,7 +13,7 @@ class _SponsorPageState extends State<SponsorPage> {
   // Update the fetchSponsors method to return a Future<List<Sponsors>>
   static Future<List<Sponsors>> fetchSponsors() async {
     final api = APIs();
-    return APIs.fetchSponsors();
+    return api.fetchSponsors();
   }
 
   @override

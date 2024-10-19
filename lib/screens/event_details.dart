@@ -9,12 +9,12 @@ class EventDetailPage extends StatefulWidget {
 }
 
 class _EventDetailPageState extends State<EventDetailPage> {
-  bool isReadMore = false;  // To manage "Read More" state
+  bool isReadMore = false; // To manage "Read More" state
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF121212),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -118,7 +118,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
               ],
             ),
 
-
             // Description section
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -147,7 +146,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        isReadMore = !isReadMore;  // Toggle the "Read More" state
+                        isReadMore =
+                            !isReadMore; // Toggle the "Read More" state
                       });
                     },
                     child: Text(
@@ -163,10 +163,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   // Gradient button (Society Name)
                   Center(
                     child: Container(
-                      width: MediaQuery.of(context).size.width/1.2,
+                      width: MediaQuery.of(context).size.width / 1.2,
                       margin: EdgeInsets.only(right: 30),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 14, horizontal: 40.0),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 14, horizontal: 40.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         gradient: LinearGradient(
@@ -224,7 +224,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   // ),
 
                   SizedBox(
-                    height: 200,  // Fixed height for the ListView
+                    height: 200, // Fixed height for the ListView
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 12, // 12 boxes
@@ -248,7 +248,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       },
                     ),
                   ),
-
                 ],
               ),
             ),
