@@ -7,7 +7,9 @@ import 'package:pavilion/models/artists.dart';
 import 'package:pavilion/models/events.dart';
 import 'package:pavilion/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart'; // Import Google Fonts
+import 'package:google_fonts/google_fonts.dart';
+
+import '../components/loading_view.dart'; // Import Google Fonts
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -51,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               future: artistDataFuture, // Use the initialized future
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LoadingView(height: 80, width: 80));
                 }
                 if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
@@ -86,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               future: eventsDataFuture, // Use the initialized future
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LoadingView(height:60, width: 60));
                 }
                 if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
@@ -105,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
               future: eventsDataFuture, // Use the initialized future
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: LoadingView(height: 60, width: 60));
                 }
                 if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));

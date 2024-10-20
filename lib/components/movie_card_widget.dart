@@ -4,6 +4,7 @@ import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pavilion/models/events.dart';
 import '../screens/SpecificEvents.dart';
+import 'loading_view.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final List<Events> data;
@@ -54,7 +55,7 @@ class MovieCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0), // Rounded corners for the image
                   child: CachedNetworkImage(
                     imageUrl: event.image, // Use the event's image
-                    placeholder: (context, url) => const CircularProgressIndicator(), // Loading indicator
+                    placeholder: (context, url) => LoadingView(height: 40, width: 40), // Loading indicator
                     errorWidget: (context, url, error) => const Icon(Icons.error), // Error icon
                     width: 80, // Set the width of the image
                     height: 80, // Set the height of the image

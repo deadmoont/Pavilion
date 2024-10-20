@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer'; // Make sure to import this for log()
 import 'package:flutter/material.dart';
 import '../components/MyListTile.dart'; // Assuming MyListTile is correctly imported
+import '../components/loading_view.dart';
 import '../database/Apis.dart'; // Import your API class with fetchTimeLine method
 
 class Timeline extends StatefulWidget {
@@ -50,7 +51,7 @@ class _TimelineState extends State<Timeline> {
         ),
       ),
       body: isLoading
-          ? const Center(child: CircularProgressIndicator()) // Show loading while fetching
+          ? const Center(child: LoadingView(height: 100, width: 100)) // Show loading while fetching
           : Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: ListView.builder(

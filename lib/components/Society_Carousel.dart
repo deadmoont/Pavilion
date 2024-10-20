@@ -7,6 +7,7 @@ import 'package:pavilion/models/event_model.dart';
 import 'package:pavilion/screens/event_screen.dart';
 import '../models/artists.dart';
 import '../screens/SpecificEvents.dart';
+import 'loading_view.dart';
 
 class SocietyCarousel extends StatelessWidget {
   final List<String> data; // Accepting a list of Artists
@@ -54,7 +55,7 @@ class SocietyCarousel extends StatelessWidget {
                         : "fallback_image_url", // Provide a fallback image if URL is empty
                     fit: BoxFit.fill,
                     placeholder: (context, url) =>
-                        Center(child: CircularProgressIndicator()),
+                        Center(child: LoadingView(height: 80, width: 80)),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),

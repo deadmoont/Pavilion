@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Make sure to import Firestore
+import '../components/loading_view.dart';
 import '../components/sponsor_card.dart';
 import '../database/Apis.dart';
 import '../models/sponsors.dart'; // Assuming the Sponsors class is in this path
@@ -35,7 +36,7 @@ class _SponsorPageState extends State<SponsorPage> {
         future: fetchSponsors(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: LoadingView(height: 100, width: 100));
           } else if (snapshot.hasError) {
             return Center(child: Text('Error fetching sponsors'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

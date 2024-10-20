@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pavilion/components/Detailcard.dart';
+import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/screens/SpecificEvents.dart';
 
 import '../models/artists.dart';
@@ -54,7 +55,7 @@ class CustomCarouselSlider extends StatelessWidget {
                       fit:
                           BoxFit.cover, // Ensure the image covers the container
                       placeholder: (context, url) =>
-                          Center(child: CircularProgressIndicator()),
+                          Center(child: LoadingView(height: 80, width: 80)),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),

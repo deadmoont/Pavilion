@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';  // Import Google Fonts
+import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/database/Apis.dart';  // Import the APIs class
 
 class PhotowallScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),  // Add horizontal and vertical padding
         child: isLoading
-            ? const Center(child: CircularProgressIndicator())  // Show a loader while fetching data
+            ? const Center(child: LoadingView(height: 100, width: 100))  // Show a loader while fetching data
             : images.isEmpty
             ? const Center(child: Text('No images found.'))  // Handle case where there are no images
             : Padding(
