@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_gradient/animate_gradient.dart';
 import 'package:pavilion/screens/TeamsPage.dart';
+import 'package:pavilion/screens/merchScreen.dart';
 import 'package:pavilion/screens/test.dart';
 
 import 'aboutus_page.dart';
@@ -90,6 +91,10 @@ class Loadingscreen extends StatelessWidget {
                   text: 'Merch',
                   onTap: () {
                     // Action when FAQs is clicked
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MerchPage()),
+                    );
                   },
                 ),
                 CustomButton(
