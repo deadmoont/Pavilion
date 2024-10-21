@@ -65,9 +65,20 @@ class _TimelineState extends State<Timeline> {
               children: [
                 const SizedBox(height: 30),
                 Center(
-                  child: Text(
-                    day,
-                    style: const TextStyle(fontSize: 24, color: Colors.white),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[600],
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      day,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
                 ListView.builder(
