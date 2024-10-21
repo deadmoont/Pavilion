@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_gradient/animate_gradient.dart';
+import 'package:pavilion/screens/TeamsPage.dart';
+import 'package:pavilion/screens/test.dart';
 
 import 'aboutus_page.dart';
 
@@ -66,6 +68,10 @@ class Loadingscreen extends StatelessWidget {
                   text: 'Team',
                   onTap: () {
                     // Action when Team is clicked
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TeamPage()),
+                    );
                   },
                 ),
                 CustomButton(
@@ -73,11 +79,15 @@ class Loadingscreen extends StatelessWidget {
                   text: 'Sponsors',
                   onTap: () {
                     // Action when Sponsors is clicked
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SponsorPage()),
+                    );
                   },
                 ),
                 CustomButton(
                   icon: Icons.question_answer_outlined,
-                  text: 'FAQs',
+                  text: 'Merch',
                   onTap: () {
                     // Action when FAQs is clicked
                   },
