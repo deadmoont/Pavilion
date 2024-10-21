@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/database/Apis.dart';
 import 'package:pavilion/screens/event_screen.dart';
 
@@ -121,8 +122,8 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
                         placeholder: (context, url) => Container(
                           height: screenHeight * 0.12,
                           color: Colors.grey[200],
-                          child: const Center(
-                            child: CircularProgressIndicator(),
+                          child: Center(
+                            child: LoadingView(height: 30, width: 30),
                           ),
                         ),
                         errorWidget: (context, url, error) => Container(
