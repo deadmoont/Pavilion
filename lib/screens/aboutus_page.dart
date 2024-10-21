@@ -49,7 +49,7 @@ class AboutUsPage extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white, width: 2),
                   ),
-                  child: Image.asset('assets/svgIcons/logo.png'),
+                  child: Image.asset('assets/images/notification.png'),
                 ),
                 SizedBox(height: screenHeight * 0.02), // Responsive spacing
                 Padding(
