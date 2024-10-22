@@ -4,6 +4,7 @@ class Events {
   String venue;
   String des;
   String title;
+  String form;
 
   Events({
     this.date = '',   // Provide default values
@@ -11,6 +12,7 @@ class Events {
     this.venue = '',
     this.des = '',
     this.title = '',
+    this.form='',
   });
 
   Events.fromJson(Map<String, dynamic> json)
@@ -18,7 +20,9 @@ class Events {
         image = json["image"] ?? '',
         venue = json["venue"] ?? '',
         des = json["des"] ?? '',
-        title = json["title"] ?? '';
+        title = json["title"] ?? '',
+        form = json["form"] ?? '';
+
 
   Map<String, dynamic> toJson() {
     return {
@@ -27,6 +31,7 @@ class Events {
       "venue": venue,
       "des": des,
       "title": title,
+      "form":form,
     };
   }
 }
