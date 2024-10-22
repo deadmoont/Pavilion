@@ -547,19 +547,28 @@ class _TeamPageState extends State<TeamPage> {
                   color: Colors.white70, // Border color
                   width: 2.0, // Border width
                 ),
-                borderRadius: BorderRadius.circular(
-                    15.0), // Optional: adds rounded corners
+                borderRadius: BorderRadius.circular(15.0), // Adds rounded corners
               ),
-              child: ListTile(
-                title: Text(
-                  teamRoles[index],
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white70,
+              child: Material(
+                color: Colors.transparent, // Ensures ripple effect appears over background
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(15.0), // Ripple matches the rounded corners
+                  onTap: () => _showTeamDetails(teamRoles[index]),
+                  splashColor: Colors.white54, // Color of the ripple effect
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text(
+                        teamRoles[index],
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                onTap: () => _showTeamDetails(teamRoles[index]),
               ),
             );
           },
@@ -567,4 +576,66 @@ class _TeamPageState extends State<TeamPage> {
       ),
     );
   }
+
+
+// @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     backgroundColor: Colors.black,
+  //     appBar: AppBar(
+  //       leading: IconButton(
+  //           onPressed: () {
+  //             Navigator.pop(context);
+  //           },
+  //           icon: Icon(
+  //             Icons.arrow_back,
+  //             color: Colors.white70,
+  //           )),
+  //       backgroundColor: Color(0xFF3B150E),
+  //       title: Text(
+  //         'Core Team',
+  //         style: TextStyle(color: Colors.white70),
+  //       ),
+  //     ),
+  //     body: Container(
+  //       decoration: const BoxDecoration(
+  //         gradient: LinearGradient(
+  //           begin: Alignment.topCenter,
+  //           end: Alignment.bottomCenter,
+  //           colors: [
+  //             Color(0xFF3B150E), // Light red at the top
+  //             Color(0xFF1A0C08), // Black at the bottom
+  //           ],
+  //         ),
+  //       ),
+  //       child: ListView.builder(
+  //         itemCount: teamRoles.length,
+  //         itemBuilder: (BuildContext context, int index) {
+  //           return Container(
+  //             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  //             decoration: BoxDecoration(
+  //               border: Border.all(
+  //                 color: Colors.white70, // Border color
+  //                 width: 2.0, // Border width
+  //               ),
+  //               borderRadius: BorderRadius.circular(
+  //                   15.0), // Optional: adds rounded corners
+  //             ),
+  //             child: ListTile(
+  //               title: Text(
+  //                 teamRoles[index],
+  //                 style: TextStyle(
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.white70,
+  //                 ),
+  //               ),
+  //               onTap: () => _showTeamDetails(teamRoles[index]),
+  //             ),
+  //           );
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 }
