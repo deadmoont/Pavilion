@@ -35,7 +35,7 @@ class EventCard extends StatelessWidget {
                   height: 100,
                   color: Colors.grey[200],
                   child: Center(
-                    child: LoadingView(height: 40, width: 40),
+                    child: CircularProgressIndicator(),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(

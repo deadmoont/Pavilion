@@ -55,7 +55,7 @@ class CustomCarouselSlider extends StatelessWidget {
                       fit:
                           BoxFit.cover, // Ensure the image covers the container
                       placeholder: (context, url) =>
-                          Center(child: LoadingView(height: 80, width: 80)),
+                          Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),

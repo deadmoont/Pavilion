@@ -46,7 +46,7 @@ class _SponsorPageState extends State<SponsorPage> {
           future: fetchSponsors(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: LoadingView(height: 100, width: 100));
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error fetching sponsors'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {

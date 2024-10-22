@@ -44,7 +44,7 @@ class _TimelineState extends State<Timeline> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoading
-          ? const Center(child: LoadingView(height: 100, width: 100)) // Show loading while fetching
+          ? const Center(child: CircularProgressIndicator()) // Show loading while fetching
           : Container(
               height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(

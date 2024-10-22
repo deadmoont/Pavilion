@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 future: artistDataFuture, // Use the initialized future
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: LoadingView(height: 80, width: 80));
+                    return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 future: eventsDataFuture, // Use the initialized future
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: LoadingView(height: 60, width: 60));
+                    return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
@@ -114,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 future: eventsDataFuture, // Use the initialized future
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: LoadingView(height: 60, width: 60));
+                    return Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));

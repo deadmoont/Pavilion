@@ -255,7 +255,7 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
               child: Container(
                 color: Color(0xFF3B150E), // Semi-transparent background
                 child: const Center(
-                  child: LoadingView(height: 100, width: 100), // Loading spinner
+                  child: CircularProgressIndicator(), // Loading spinner
                 ),
               ),
             ),
