@@ -63,6 +63,8 @@ dependencies:
   intl: ^0.18.0
   pull_to_refresh_flutter3: ^2.0.2
   permission_handler: ^11.3.1
+  connectivity_plus: ^6.1.0
+
 
 
 dev_dependencies:
