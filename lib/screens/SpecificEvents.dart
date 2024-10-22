@@ -58,7 +58,7 @@ class _SpecificEventState extends State<SpecificEvent> {
                       // While the image is loading, return an empty container
                       return Container(
                         child: const Center(
-                          child: CircularProgressIndicator(), // Show loading indicator while the image is loading
+                          child: LoadingView(height: 60, width: 60), // Show loading indicator while the image is loading
                         ),
                       );
                     }

@@ -16,7 +16,7 @@ class LoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Lottie.asset(
-          'assets/animation/wizard.json', // Replace with your Lottie JSON path
+          'assets/animation/LoadingNew.json', // Replace with your Lottie JSON path
           height: height,
           width: width,
           fit: BoxFit.cover,

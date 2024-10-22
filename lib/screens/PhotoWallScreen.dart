@@ -177,6 +177,7 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF3B150E),
       appBar: AppBar(
         title: Text(
           'Photo Wall',
@@ -251,14 +252,12 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
 
           // Full-page loading indicator until images are fully loaded + 1 second delay
           if (isLoading || !delayedLoadingRemoval)
-            Positioned.fill(
-              child: Container(
+            Container(
                 color: Color(0xFF3B150E), // Semi-transparent background
                 child: const Center(
-                  child: CircularProgressIndicator(), // Loading spinner
+                  child: LoadingView(height: 100, width: 100), // Loading spinner
                 ),
               ),
-            ),
         ],
       ),
     );

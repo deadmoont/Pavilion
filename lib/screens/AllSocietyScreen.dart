@@ -147,7 +147,7 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
                                   height: screenHeight * 0.12,
                                   color: Colors.grey[200],
                                   child: Center(
-                                    child: CircularProgressIndicator(),
+                                    child: LoadingView(height: 60, width: 60),
                                   ),
                                 ),
                                 errorWidget: (context, url, error) => Container(

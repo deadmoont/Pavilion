@@ -55,7 +55,7 @@ class SocietyCarousel extends StatelessWidget {
                         : "fallback_image_url", // Provide a fallback image if URL is empty
                     fit: BoxFit.fill,
                     placeholder: (context, url) =>
-                        Center(child: CircularProgressIndicator()),
+                        Center(child: LoadingView(height: 50, width: 50)),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),

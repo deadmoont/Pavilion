@@ -55,7 +55,7 @@ class MovieCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8.0), // Rounded corners for the image
                   child: CachedNetworkImage(
                     imageUrl: event.image, // Use the event's image
-                    placeholder: (context, url) => CircularProgressIndicator(), // Loading indicator
+                    placeholder: (context, url) => LoadingView(height: 40, width: 40), // Loading indicator
                     errorWidget: (context, url, error) => const Icon(Icons.error), // Error icon
                     width: 80, // Set the width of the image
                     height: 80, // Set the height of the image
