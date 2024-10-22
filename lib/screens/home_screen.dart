@@ -21,6 +21,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Artists>> artistDataFuture; // Declare a future variable to hold artist data
   late Future<List<Events>> eventsDataFuture;
+  late Future<List<Events>> firstHalfEventsFuture;
+  late Future<List<Events>> secondHalfEventsFuture;
+
+
   List<String> societylist = [
     "AMS",
     "GeneticX",
@@ -30,12 +34,29 @@ class _HomeScreenState extends State<HomeScreen> {
     "sarasva"
   ];
 
+  // Method to fetch and split events data into two halves
+  void _splitEventsData() {
+    // Fetch the full list of events
+    Future<List<Events>> fullEventsDataFuture = APIs.fetcheventsData();
+
+    firstHalfEventsFuture = fullEventsDataFuture.then((events) {
+      int halfLength = (events.length / 2).ceil();
+      return events.sublist(0, halfLength); // First half
+    });
+
+    secondHalfEventsFuture = fullEventsDataFuture.then((events) {
+      int halfLength = (events.length / 2).ceil();
+      return events.sublist(halfLength); // Second half
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     artistDataFuture = APIs.fetchArtistData(); // Initialize the future in initState
     eventsDataFuture = APIs.fetcheventsData();
     APIs.fetchSocietyData(); // Initialize the future in initState
+    _splitEventsData();
   }
 
   @override
@@ -91,8 +112,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const SizedBox(height: 15),
+
+              // First Event Data
               FutureBuilder<List<Events>>(
-                future: eventsDataFuture, // Use the initialized future
+                future: firstHalfEventsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: LoadingView(height: 50, width: 50));
@@ -102,16 +125,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   if (snapshot.hasData) {
                     return MovieCardWidget(
-                        data: snapshot.data!,
-                        delay: 1200,
-                        rev: false); // Pass the data to the carousel slider
+                      data: snapshot.data!,
+                      delay: 1200,
+                      rev: false,
+                    );
                   }
                   return const SizedBox(); // Return an empty box if there's no data
                 },
               ),
               const SizedBox(height: 10),
+
+              // Second Event Data
               FutureBuilder<List<Events>>(
-                future: eventsDataFuture, // Use the initialized future
+                future: secondHalfEventsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: LoadingView(height: 50, width: 50));
@@ -121,13 +147,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   if (snapshot.hasData) {
                     return MovieCardWidget(
-                        data: snapshot.data!,
-                        delay: 2000,
-                        rev: true); // Pass the data to the carousel slider
+                      data: snapshot.data!,
+                      delay: 2000,
+                      rev: true,
+                    );
                   }
                   return const SizedBox(); // Return an empty box if there's no data
                 },
               ),
+
               const SizedBox(height: 20), // Added some spacing for clarity
               Align(
                 alignment: Alignment.centerLeft,

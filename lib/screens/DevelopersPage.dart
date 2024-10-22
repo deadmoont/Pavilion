@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pavilion/components/loading_view.dart'; // Import Firestore
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -20,6 +21,22 @@ class _DevelopersPageState extends State<DevelopersPage> {
     fetchDevelopers();
   }
 
+  Widget _buildPlaceholder() {
+    return Container(
+      height: 250,
+      decoration: BoxDecoration(
+        color: Colors.grey[300], // Background color
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12.0),
+        child: Image.asset(
+          'assets/images/placeholder.png',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
   // Fetch developers from Firestore
   Future<void> fetchDevelopers() async {
     try {
@@ -71,7 +88,7 @@ class _DevelopersPageState extends State<DevelopersPage> {
         ),
       ),
       body: isLoading
-          ? Container(child: Center(child: CircularProgressIndicator())) // Show loading indicator
+          ? Container(child: Center(child: LoadingView(height: 100, width: 100))) // Show loading indicator
           : Container(
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
@@ -155,7 +172,6 @@ class _DevelopersPageState extends State<DevelopersPage> {
     );
   }
 
-  // Dynamic profile card builder
   Widget buildProfileCard({
     required String name,
     required String imageUrl,
@@ -178,26 +194,61 @@ class _DevelopersPageState extends State<DevelopersPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 60, // Further increased the size of the avatar
-              backgroundColor: Colors.yellowAccent,
-              child: CircleAvatar(
-                radius: 58,
-                backgroundImage: NetworkImage(imageUrl),
-              ),
+            Container(
+              alignment: Alignment.center,
+              child:
+                CircleAvatar(
+                  radius: 60, // Outer size of the avatar
+                  backgroundColor: Colors.yellowAccent,
+                  child: CircleAvatar(
+                    radius: 58,
+                    backgroundColor: Colors.brown[200], // Background color for avatar
+                    child: ClipOval(
+                      child: Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        width: 116, // Ensure the width equals twice the radius
+                        height: 116, // Same height for a circular image
+                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            // Image fully loaded, show the image
+                            return child;
+                          } else {
+                            // Image is still loading, show the placeholder
+                            return Image.asset(
+                              'assets/images/placeholder.png',
+                              width: 116,
+                              height: 116,
+                              fit: BoxFit.cover,
+                            );
+                          }
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(
+                            Icons.error,
+                            color: Colors.red,
+                            size: 50,
+                          ); // Show error icon if the image fails to load
+                        },
+                      ),
+                    ),
+                  ),
+                ),
             ),
             const SizedBox(height: 10),
             Text(
               name,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18, // Increased font size
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 18, // Increased font size
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
 }
