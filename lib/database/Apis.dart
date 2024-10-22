@@ -20,64 +20,7 @@ class APIs {                   //google user
   List<Map<String, Map<String, Map<String, String>>>> timeline = [];
   List<String> photowall = [];
 
-  //--------------FETCH ALL Particular society Data--------------------------------------------//
-  // static Future<List<SocietyEve>> fetchSocietyDataFromLocalStorage(String items) async {
-  //   final storage = FlutterSecureStorage();
-  //   log("Checking local storage for events data...");
-  //
-  //     String? localData = await storage.read(key: items);
-  //
-  //     if (localData != null && localData.isNotEmpty) {
-  //       log("Data found in local storage, populating ${items} events list...");
-  //
-  //       try {
-  //         // Parse local data and populate the artists list
-  //         List<dynamic> jsonData = jsonDecode(localData);
-  //         societyevents = jsonData.map((data) => SocietyEve.fromJson(data)).toList();
-  //
-  //         log('Loaded ${societyevents.length} events from local storage.');
-  //       } catch (e) {
-  //         log('Error parsing local storage data: $e');
-  //       }
-  //     } else {
-  //       log("No data found in local storage, fetching from Firebase...");
-  //
-  //       try {
-  //         final querySnapshot = await FirebaseFirestore.instance
-  //             .collection(items)
-  //             .get();
-  //
-  //         List<SocietyEve> fetchedEvents = [];
-  //         for (var doc in querySnapshot.docs) {
-  //           try {
-  //             var jsonData = doc.data();
-  //             log('Document Data: $jsonData');
-  //
-  //             // Convert jsonData into an Artists object
-  //             SocietyEve events = SocietyEve.fromJson(jsonData);
-  //             fetchedEvents.add(events);
-  //           } catch (e) {
-  //             log('Error while parsing document: $e');
-  //           }
-  //         }
-  //
-  //         // Update the artists list with fetched data
-  //         societyevents = fetchedEvents;
-  //
-  //         // Store the fetched data in local storage
-  //         await storage.write(key: items, value: jsonEncode(societyevents.map((event) => event.toJson()).toList()));
-  //         log('Fetched ${societyevents.length} event from Firebase and stored in local storage.');
-  //       } on FirebaseException catch (e) {
-  //         log('FirebaseException: ${e.message}');
-  //       } catch (e) {
-  //         log('Error fetching documents: $e');
-  //       }
-  //   }
-  //
-  //     return societyevents;
-  //
-  // }
-
+ 
   //--------------FETCH ALL SocietyEvents Data--------------------------------------------//
   static Future<void> fetchSocietyData() async {
     final storage = FlutterSecureStorage();
