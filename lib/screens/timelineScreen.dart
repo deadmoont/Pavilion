@@ -111,7 +111,7 @@ class _TimelineState extends State<Timeline> {
                               isLast: eventIndex == events.length - 1,
                               name: event?['name'] ?? '',
                               venue: event?['venue'] ?? '',
-                              timestamp: "12:00", // Placeholder; format timestamp properly
+                              timestamp: event?['time'] ?? '--', // Placeholder; format timestamp properly
                             );
                           },
                         ),
