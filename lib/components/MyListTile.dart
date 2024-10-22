@@ -65,7 +65,7 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
           afterLineStyle: const LineStyle(color: Colors.white),
           indicatorStyle: const IndicatorStyle(
             width: 15,
-            color: Colors.white,
+            color: Color(0xFFFFFF79)
           ),
           endChild: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),

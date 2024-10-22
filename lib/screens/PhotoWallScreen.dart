@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';  // Import Google Fonts
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pavilion/components/loading_view.dart';
-import 'package:pavilion/database/Apis.dart';  // Import the APIs class
+import 'package:pavilion/database/Apis.dart';
 
 class PhotowallScreen extends StatefulWidget {
   const PhotowallScreen({super.key});
@@ -13,7 +13,7 @@ class PhotowallScreen extends StatefulWidget {
 
 class _PhotowallScreenState extends State<PhotowallScreen> {
   List<String> images = [];
-  bool isLoading = true;  // Add a loading state
+  bool isLoading = true;
   final api = APIs();
 
   @override
@@ -24,15 +24,14 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
 
   Future<void> _loadPhotoWall() async {
     try {
-      // Fetch the images from Firestore
       List<String> fetchedImages = await api.fetchPhotoWall();
       setState(() {
         images = fetchedImages;
-        isLoading = false;  // Set loading state to false after data is fetched
+        isLoading = false;
       });
     } catch (e) {
       setState(() {
-        isLoading = false;  // Handle error by disabling the loader
+        isLoading = false;
       });
       print('Error loading photo wall: $e');
     }
@@ -44,54 +43,65 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
       appBar: AppBar(
         title: Text(
           'Photo Wall',
-          style: GoogleFonts.dmSans(  // Apply DM Sans font
-            color: Colors.white,       // Set text color to white
+          style: GoogleFonts.dmSans(
+            color: Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: false, // Align the title to the left
-        backgroundColor: Colors.black,  // Set the background color of the AppBar to black
+        centerTitle: false,
+        backgroundColor: const Color(0xFF3B150E),
       ),
-      backgroundColor: Colors.black,  // Set the background color of the scaffold to black
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),  // Add horizontal and vertical padding
-        child: isLoading
-            ? const Center(child: LoadingView(height: 100, width: 100))  // Show a loader while fetching data
-            : images.isEmpty
-            ? const Center(child: Text('No images found.'))  // Handle case where there are no images
-            : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),  // Add horizontal padding around the photo list
-                child: MasonryGridView.builder(
-                  gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: images.length,
-                  itemBuilder: (context, index) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),  // Apply rounded corners to the container and image
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white, width: 2.0),  // Add white border to the images
-                          borderRadius: BorderRadius.circular(12.0),  // Ensure rounded corners
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),  // Apply rounded corners inside the container
-                          child: Image.network(
-                            images[index],
-                            fit: BoxFit.cover,  // Ensure the image fits properly
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Icon(Icons.broken_image);  // Handle error in case of a broken URL
-                            },
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  mainAxisSpacing: 14.0,  // Space between tiles vertically
-                  crossAxisSpacing: 14.0,  // Space between tiles horizontally
-                ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF3B150E), // Light red at the top
+              Color(0xFF1A0C08), // Black at the bottom
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+          child: isLoading
+              ? const Center(child: LoadingView(height: 100, width: 100))
+              : images.isEmpty
+              ? const Center(child: Text('No images found.'))
+              : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: MasonryGridView.builder(
+              gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
+              itemCount: images.length,
+              itemBuilder: (context, index) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2.0),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.network(
+                        images[index],
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.broken_image);
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              },
+              mainAxisSpacing: 14.0,
+              crossAxisSpacing: 14.0,
+            ),
+          ),
+        ),
       ),
     );
   }

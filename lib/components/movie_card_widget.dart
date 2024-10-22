@@ -38,7 +38,7 @@ class MovieCardWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 8.0),
             padding: const EdgeInsets.symmetric(horizontal: 15),
             decoration: BoxDecoration(
-              color: const Color(0xFF242424), // Set the background color
+              color: const Color(0x355E3C35), // Set the background color
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(

@@ -12,6 +12,19 @@ class AboutUsPage extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
+          // Container for gradient background
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF3B150E), // Light red at the top
+                  Color(0xFF1A0C08), // Black at the bottom
+                ],
+              ),
+            ),
+          ),
           SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,8 +100,7 @@ class AboutUsPage extends StatelessWidget {
                     SocialMediaIcon(
                       image: 'assets/images/instagram.png',
                       onTap: () {
-                        _launchURL(
-                            'https://www.instagram.com/goeffervescence/');
+                        _launchURL('https://www.instagram.com/goeffervescence/');
                       },
                     ),
                     SocialMediaIcon(

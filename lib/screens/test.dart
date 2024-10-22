@@ -11,6 +11,7 @@ class _SponsorPageState extends State<SponsorPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back , color: Colors.white,)),
         title: Text(
           'Sponsors',
           style: TextStyle(color: Colors.white),

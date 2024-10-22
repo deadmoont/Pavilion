@@ -14,7 +14,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -62,15 +61,22 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     ],
                   ),
                 ),
-                // Event details card at the bottom
+                // Event details card at the bottom with gradient
                 Positioned(
                   bottom: 20,
                   left: 20,
                   right: 20,
-                  child: Card(
-                    color: Colors.grey.shade200.withOpacity(0.8),
-                    shape: RoundedRectangleBorder(
+                  child: Container(
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFF3B150E), // Light red at the top
+                          Color(0xFF1A0C08), // Black at the bottom
+                        ],
+                      ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -79,21 +85,22 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "Coldplay : Music of the Spheres",
+                            "Coldplay: Music of the Spheres",
                             style: GoogleFonts.poppins(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white, // White text color
                             ),
                           ),
                           SizedBox(height: 8),
                           Row(
                             children: [
-                              Icon(Icons.location_on, size: 16),
+                              Icon(Icons.location_on, size: 16, color: Colors.white), // White icon
                               SizedBox(width: 5),
                               Flexible(
                                 child: Text(
                                   "Gelora Bung Karno Stadium, Jakarta",
-                                  style: GoogleFonts.poppins(fontSize: 14),
+                                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.white),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -102,11 +109,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           SizedBox(height: 5),
                           Row(
                             children: [
-                              Icon(Icons.event, size: 16),
+                              Icon(Icons.event, size: 16, color: Colors.white), // White icon
                               SizedBox(width: 5),
                               Text(
                                 "November 15, 2023",
-                                style: GoogleFonts.poppins(fontSize: 14),
+                                style: GoogleFonts.poppins(fontSize: 14, color: Colors.white),
                               ),
                             ],
                           ),
@@ -138,7 +145,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         ? "Integer id augue iaculis, iaculis orci ut, blandit quam. Donec in elit auctor, finibus quam in, pharetra. Proin id ligula dictum, covalis enim ut, facilisis massa. Mauris a nisi ut sapien blandit imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed posuere egestas nunc ut tempus. Fu ipsum dolor sit amet."
                         : "Integer id augue iaculis, iaculis orci ut, blandit quam. Donec in elit auctor, finibus quam in, pharetra.",
                     style: GoogleFonts.poppins(
-                      color: Colors.grey.shade400,
+                      color: Colors.grey.shade300, // Lighter grey text
                       fontSize: 14,
                     ),
                   ),
@@ -146,8 +153,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        isReadMore =
-                            !isReadMore; // Toggle the "Read More" state
+                        isReadMore = !isReadMore; // Toggle the "Read More" state
                       });
                     },
                     child: Text(
@@ -165,15 +171,15 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     child: Container(
                       width: MediaQuery.of(context).size.width / 1.2,
                       margin: EdgeInsets.only(right: 30),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 14, horizontal: 40.0),
+                      padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
                         gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                           colors: [
-                            Colors.pink,
-                            Colors.purple,
-                            Colors.blue,
+                            Color(0xFF3B150E), // Light red at the top
+                            Color(0xFF1A0C08), // Black at the bottom
                           ],
                         ),
                       ),
@@ -198,31 +204,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  // Grid for other events
-                  // GridView.count(
-                  //   crossAxisCount: 2,
-                  //   shrinkWrap: true,
-                  //   physics: NeverScrollableScrollPhysics(),
-                  //   childAspectRatio: 1.2,
-                  //   children: List.generate(4, (index) {
-                  //     return Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: Container(
-                  //         decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(20),
-                  //           gradient: LinearGradient(
-                  //             colors: [
-                  //               Colors.purple,
-                  //               Colors.blue,
-                  //               Colors.green,
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   }),
-                  // ),
-
+                  // Horizontal ListView for other events
                   SizedBox(
                     height: 200, // Fixed height for the ListView
                     child: ListView.builder(

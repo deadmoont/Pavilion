@@ -55,19 +55,16 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Get device width and height
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // Determine the childAspectRatio dynamically based on screen width and height
-    double childAspectRatio = screenWidth / (screenHeight / 1.5); // Adjust as needed
+    double childAspectRatio = screenWidth / (screenHeight / 1.5);
 
     return Scaffold(
-      backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF121212),
+        backgroundColor: const Color(0xFF3B150E),
         title: Text(
-          "Events",
+          "Societies",
           style: GoogleFonts.dmSans(
             textStyle: const TextStyle(
               fontSize: 28.0,
@@ -77,97 +74,108 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: screenWidth > 600 ? 3 : 2, // Adjust columns based on screen width
-            crossAxisSpacing: 10.0,
-            mainAxisSpacing: 10.0,
-            childAspectRatio: childAspectRatio, // Dynamically adjust aspect ratio
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF3B150E), // Light red at the top
+              Color(0xFF1A0C08), // Black at the bottom
+            ],
           ),
-          itemCount: societyList.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                // Navigate to the EventScreen when tapped
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EventScreen(
-                      list: APIs.societyeventslist[index],
-                      item: societyList[index]["name"]!,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: screenWidth > 600 ? 3 : 2,
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
+              childAspectRatio: childAspectRatio,
+            ),
+            itemCount: societyList.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EventScreen(
+                        list: APIs.societyeventslist[index],
+                        item: societyList[index]["name"]!,
+                      ),
                     ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16.0),
+                    color: Colors.black,
+                    border: Border.all(color: Colors.white, width: 2),
                   ),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.0),
-                  color: Colors.black,
-                  border: Border.all(color: Colors.white, width: 2),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(16.0),
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrls[index],
-                        height: screenHeight * 0.12, // Adjust height based on screen height
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(16.0),
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrls[index],
                           height: screenHeight * 0.12,
-                          color: Colors.grey[200],
-                          child: Center(
-                            child: LoadingView(height: 30, width: 30),
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Container(
+                            height: screenHeight * 0.12,
+                            color: Colors.grey[200],
+                            child: Center(
+                              child: LoadingView(height: 30, width: 30),
+                            ),
                           ),
-                        ),
-                        errorWidget: (context, url, error) => Container(
-                          height: screenHeight * 0.12,
-                          color: Colors.grey[200],
-                          child: const Icon(
-                            Icons.error,
-                            color: Colors.red,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        societyList[index]["name"]!,
-                        style: GoogleFonts.dmSans(
-                          textStyle: TextStyle(
-                            fontSize: screenWidth * 0.045, // Responsive text size
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        societyList[index]["description"]!,
-                        style: GoogleFonts.dmSans(
-                          textStyle: TextStyle(
-                            fontSize: screenWidth * 0.03, // Responsive text size
-                            color: Colors.white70,
+                          errorWidget: (context, url, error) => Container(
+                            height: screenHeight * 0.12,
+                            color: Colors.grey[200],
+                            child: const Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          societyList[index]["name"]!,
+                          style: GoogleFonts.dmSans(
+                            textStyle: TextStyle(
+                              fontSize: screenWidth * 0.045,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          societyList[index]["description"]!,
+                          style: GoogleFonts.dmSans(
+                            textStyle: TextStyle(
+                              fontSize: screenWidth * 0.03,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

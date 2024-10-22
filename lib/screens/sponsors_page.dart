@@ -11,7 +11,6 @@ class SponsorPage extends StatefulWidget {
 }
 
 class _SponsorPageState extends State<SponsorPage> {
-  // Update the fetchSponsors method to return a Future<List<Sponsors>>
   static Future<List<Sponsors>> fetchSponsors() async {
     final api = APIs();
     return api.fetchSponsors();
@@ -20,41 +19,53 @@ class _SponsorPageState extends State<SponsorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
+        leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back ,color: Colors.white,)),
         title: Text(
           'Sponsors',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 30
+            fontSize: 30,
           ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xFF3B150E),
         elevation: 0,
       ),
-      body: FutureBuilder<List<Sponsors>>(
-        future: fetchSponsors(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: LoadingView(height: 100, width: 100));
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error fetching sponsors'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No sponsors available'));
-          }
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF3B150E), // Light red at the top
+              Color(0xFF1A0C08), // Black at the bottom
+            ],
+          ),
+        ),
+        child: FutureBuilder<List<Sponsors>>(
+          future: fetchSponsors(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: LoadingView(height: 100, width: 100));
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error fetching sponsors'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(child: Text('No sponsors available'));
+            }
 
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              // Accessing Sponsors object properties
-              Sponsors sponsor = snapshot.data![index];
-              return SponsorCard(
-                logo: sponsor.image, // Make sure to include a logo property in Sponsors
-                name: sponsor.name,
-              );
-            },
-          );
-        },
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                // Accessing Sponsors object properties
+                Sponsors sponsor = snapshot.data![index];
+                return SponsorCard(
+                  logo: sponsor.image, // Make sure to include a logo property in Sponsors
+                  name: sponsor.name,
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

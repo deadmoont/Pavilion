@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pavilion/screens/NewHomeScreen.dart';
 import 'package:pavilion/screens/PhotoWallScreen.dart';
 import 'package:pavilion/screens/SignUpScreen.dart';
 import 'package:pavilion/screens/SpecificEvents.dart';
