@@ -273,7 +273,7 @@ class _TeamPageState extends State<TeamPage> {
 
         return Container(
           decoration: BoxDecoration(
-            color: Colors.blueGrey[900],
+            color: Color(0xff121212),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
@@ -313,7 +313,7 @@ class _TeamPageState extends State<TeamPage> {
     required String imageUrl,
   }) {
     return Card(
-      color: Colors.blueGrey[800],
+      color: Color(0xff151515),
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
         padding: EdgeInsets.all(12.0),
