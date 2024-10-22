@@ -39,7 +39,7 @@ class Merchscreen extends StatelessWidget {
                 title: 'Black Solid Hooded Sweatshirt',
                 subtitle: 'Hoodie',
                 price: '₹850',
-                imagePath: 'assets/images/hoddy.png', // Replace with actual image path
+                imagePath: 'https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/merch%2Fdocument%201%2Feffervesce_merchandise.jpg?alt=media&token=7040c5ea-e730-4d6c-9364-590da3930b5e', // Replace with actual image path
               ),
             ),
             const SizedBox(height: 16),
@@ -49,7 +49,7 @@ class Merchscreen extends StatelessWidget {
                 title: 'Pullover',
                 subtitle: 'Pullover',
                 price: '₹850',
-                imagePath: 'assets/images/hoddy.png', // Replace with actual image path
+                imagePath: 'https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/merch%2Fdocument%202%2Feffervesce_merchandise_hoodie2.jpg?alt=media&token=5b42931d-cd48-462d-9a8a-1885d27e5634', // Replace with actual image path
               ),
             ),
           ],
@@ -84,7 +84,7 @@ class ProductCard extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Image.asset(
+            Image.network(
               imagePath,
               height: 100,
               width: 100,
