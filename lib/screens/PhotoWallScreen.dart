@@ -156,19 +156,23 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
     }
   }
 
-  Widget _buildShimmerPlaceholder() {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Container(
-        height: 200,
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(12.0),
+  Widget _buildPlaceholder() {
+    return Container(
+      height: 250,
+      decoration: BoxDecoration(
+        color: Colors.grey[300], // Background color
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12.0),
+        child: Image.asset(
+          'assets/images/placeholder.png',
+          fit: BoxFit.cover,
         ),
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +235,7 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
                               if (loadingProgress == null) {
                                 return child; // Image loaded successfully
                               }
-                              return _buildShimmerPlaceholder(); // Shimmer placeholder
+                              return _buildPlaceholder(); // Shimmer placeholder
                             },
                           ),
                         ),
