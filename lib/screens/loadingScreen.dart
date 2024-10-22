@@ -23,87 +23,71 @@ class Loadingscreen extends StatelessWidget {
             ],
           ),
         ),
-        child: AnimateGradient(
-          primaryBegin: Alignment.topLeft,
-          primaryEnd: Alignment.bottomLeft,
-          secondaryBegin: Alignment.bottomLeft,
-          secondaryEnd: Alignment.topRight,
-          primaryColors: const [
-            Colors.pink,
-            Colors.pinkAccent,
-            Colors.white,
-          ],
-          secondaryColors: const [
-            Colors.white,
-            Colors.blueAccent,
-            Colors.blue,
-          ],
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Logo at the top
-              Padding(
-                padding: const EdgeInsets.only(bottom: 40.0),
-                child: Image.asset(
-                  'assets/svgIcons/logo.png',
-                  color: Colors.white,
-                  height: 50,
-                ),
-              ),
-              // Buttons with ripple effect
-              CustomButton(
-                icon: Icons.description_outlined,
-                text: 'About Us',
-                onTap: () {
-                  // Action when About Us is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AboutUsPage()),
-                  );
-                },
-              ),
-              CustomButton(
-                icon: Icons.group_outlined,
-                text: 'Team',
-                onTap: () {
-                  // Action when Team is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => TeamPage()),
-                  );
-                },
-              ),
-              CustomButton(
-                icon: Icons.handshake_outlined,
-                text: 'Sponsors',
-                onTap: () {
-                  // Action when Sponsors is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SponsorPage()),
-                  );
-                },
-              ),
-              CustomButton(
-                icon: Icons.question_answer_outlined,
-                text: 'Merch',
-                onTap: () {
-                  // Action when Merch is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Merchscreen()),
-                  );
-                },
-              ),
-              CustomButton(
-                icon: Icons.person_outline,
-                text: 'Developers',
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => DevelopersPage()));
-                },
-              ),
-            ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Logo at the top
+            Padding(
+              padding: const EdgeInsets.only(bottom: 80.0),
+              child:  Image.asset(
+            'assets/svgIcons/logo.png', // Display the image from assets
+            width: 300,
+            height: 80,
           ),
+            ),
+            // Buttons with ripple effect
+            CustomButton(
+              icon: Icons.description_outlined,
+              text: 'About Us',
+              onTap: () {
+                // Action when About Us is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutUsPage()),
+                );
+              },
+            ),
+            CustomButton(
+              icon: Icons.group_outlined,
+              text: 'Team',
+              onTap: () {
+                // Action when Team is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TeamPage()),
+                );
+              },
+            ),
+            CustomButton(
+              icon: Icons.handshake_outlined,
+              text: 'Sponsors',
+              onTap: () {
+                // Action when Sponsors is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SponsorPage()),
+                );
+              },
+            ),
+            CustomButton(
+              icon: Icons.question_answer_outlined,
+              text: 'Merch',
+              onTap: () {
+                // Action when Merch is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Merchscreen()),
+                );
+              },
+            ),
+            CustomButton(
+              icon: Icons.person_outline,
+              text: 'Developers',
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => DevelopersPage()));
+              },
+            ),
+          ],
         ),
       ),
     );

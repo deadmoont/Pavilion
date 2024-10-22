@@ -361,29 +361,6 @@ class _TeamPageState extends State<TeamPage> {
                 ],
               ),
             ),
-            // Action buttons (call, camera, email)
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(Icons.call, color: Colors.white),
-                  onPressed: () {
-                    // Add functionality for call
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.linked_camera, color: Colors.white),
-                  onPressed: () {
-                    // Add functionality for camera
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.email, color: Colors.white),
-                  onPressed: () {
-                    // Add functionality for email
-                  },
-                ),
-              ],
-            ),
           ],
         ),
       ),
