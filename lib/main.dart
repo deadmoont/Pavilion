@@ -1,17 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:pavilion/Bottom%20Nav/bottom_nav.dart';
-import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/firebase_options.dart';
-import 'package:pavilion/screens/PhotoWallScreen.dart';
-import 'package:pavilion/screens/event_details.dart';
-import 'package:pavilion/screens/home_screen.dart';
-import 'package:pavilion/screens/merchScreen.dart';
-import 'package:pavilion/screens/reelsPage.dart';
-import 'package:pavilion/screens/sponsors_page.dart';
 import 'api/notif_api.dart';
-import 'components/bottom_nav_bar.dart';
 import 'screens/SplashScreen.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -72,7 +63,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: "Effervescence'24",
       home: SplashScreen(),
     );
   }
