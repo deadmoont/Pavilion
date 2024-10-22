@@ -95,6 +95,7 @@ class _TimelineState extends State<Timeline> {
                       image: event?['image'] ?? 'https://firebasestorage.googleapis.com/v0/b/argon-c1d67.appspot.com/o/College%20logo%2Fiiit_allahabad-removebg-preview.png?alt=media&token=bd59c4b0-219e-4195-81be-1faf2eb33f18', // Provide default if not found
                       name: event?['name'] ?? '',
                       venue: event?['venue'] ?? '',
+                      timestamp: event?['timestamp'] ?? '',
                     );
                   },
                 ),

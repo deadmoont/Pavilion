@@ -83,7 +83,7 @@ class APIs {                   //google user
     final storage = FlutterSecureStorage();
     log("Checking local storage for events data...");
 
-    List<String> societylist = ["AMS" , "GeneticX" , "Nirmiti" , "Rangtarangini" , "Virtuosi" , "sarasva"];
+    List<String> societylist = ["AMS" , "GeneticX" , "Nirmiti" , "Rangtarangini" , "Virtuosi" , "sarasva","Informal","MainStage"];
     List<SocietyEve>societyevents =[] ;
 
 

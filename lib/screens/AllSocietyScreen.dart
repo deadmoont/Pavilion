@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/database/Apis.dart';
 import 'package:pavilion/screens/event_screen.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class AllSocietyScreen extends StatefulWidget {
   @override
@@ -42,9 +43,21 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
       "description":
       "A literary club that encourages reading, writing, debates, and discussions, fostering a love for literature."
     },
+    {
+      "name": "Informal",
+      "description":
+      "A literary club that encourages reading, writing, debates, and discussions, fostering a love for literature."
+    },
+    {
+      "name": "Main Stage",
+      "description":
+      "A literary club that encourages reading, writing, debates, and discussions, fostering a love for literature."
+    },
   ];
 
   List<String> imageUrls = [
+    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
+    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
     "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
     "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
     "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
@@ -58,13 +71,13 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    double childAspectRatio = screenWidth / (screenHeight / 1.5);
+    double childAspectRatio = screenWidth / (screenHeight / 1.7);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF3B150E),
         title: Text(
-          "Societies",
+          "Events",
           style: GoogleFonts.dmSans(
             textStyle: const TextStyle(
               fontSize: 28.0,
@@ -90,7 +103,7 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: screenWidth > 600 ? 3 : 2,
-              crossAxisSpacing: 10.0,
+              crossAxisSpacing: 15.0,
               mainAxisSpacing: 10.0,
               childAspectRatio: childAspectRatio,
             ),
@@ -121,36 +134,43 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
                         borderRadius: const BorderRadius.vertical(
                           top: Radius.circular(16.0),
                         ),
-                        child: CachedNetworkImage(
-                          imageUrl: imageUrls[index],
-                          height: screenHeight * 0.12,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => Container(
-                            height: screenHeight * 0.12,
-                            color: Colors.grey[200],
-                            child: Center(
-                              child: LoadingView(height: 30, width: 30),
-                            ),
-                          ),
-                          errorWidget: (context, url, error) => Container(
-                            height: screenHeight * 0.12,
-                            color: Colors.grey[200],
-                            child: const Icon(
-                              Icons.error,
-                              color: Colors.red,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 0.0, left: 0.0, right: 0.0),
+                          child: Container(
+                            child: ClipRRect(
+                              child: CachedNetworkImage(
+                                imageUrl: imageUrls[index],
+                                height: screenHeight * 0.10,
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Container(
+                                  height: screenHeight * 0.12,
+                                  color: Colors.grey[200],
+                                  child: Center(
+                                    child: LoadingView(height: 30, width: 30),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                  height: screenHeight * 0.12,
+                                  color: Colors.grey[200],
+                                  child: const Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                       const SizedBox(height: 5),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Text(
                           societyList[index]["name"]!,
                           style: GoogleFonts.dmSans(
                             textStyle: TextStyle(
-                              fontSize: screenWidth * 0.045,
+                              fontSize: screenWidth * 0.042,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -159,12 +179,12 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(top:4.0,right:8.0,left:15.0),
                         child: Text(
                           societyList[index]["description"]!,
                           style: GoogleFonts.dmSans(
                             textStyle: TextStyle(
-                              fontSize: screenWidth * 0.03,
+                              fontSize: screenWidth * 0.0285,
                               color: Colors.white70,
                             ),
                           ),
