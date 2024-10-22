@@ -16,10 +16,10 @@ class Events {
   });
 
   Events.fromJson(Map<String, dynamic> json)
-      : date = json["date"] ?? '', // Use null-aware operators
-        image = json["image"] ?? '',
-        venue = json["venue"] ?? '',
-        des = json["des"] ?? '',
+      : date = json["Date"] ?? '', // Use null-aware operators
+        image = json["Image"] ?? '',
+        venue = json["Venue"] ?? '',
+        des = json["Description"] ?? '',
         title = json["title"] ?? '',
         form = json["form"] ?? '';
 

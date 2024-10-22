@@ -58,15 +58,17 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
   ];
 
   List<String> imageUrls = [
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg",
-    "https://marketplace.canva.com/EAFFWby_WGo/1/0/1131w/canva-dark-blue-night-club-party-poster-iQT5avxTBQ0.jpg"
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fams%2FScreenshot%202024-10-23%20031440.png?alt=media&token=38a45e84-6e10-4179-b404-6cf9a281c0a0",
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2FgeneticX%2F53119356397_4b9ba6d9e2_o.jpg?alt=media&token=22b3e698-312c-40bc-80a9-863d31a3adbd",
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fnirmiti%2F53652925228_b28ccb3b24_o.jpg?alt=media&token=6ecb4670-563e-4a38-a4e3-6e449be01b2d",
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Frangtarangini%2Fcover%20rang.jpg?alt=media&token=8add05a3-fb9a-4659-a15f-56e8a7f78539",
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fvirtuosi%2F53125815465_ca3b4e2ab6_o.jpg?alt=media&token=a87f1474-d20a-4216-950f-113fc4d2573c",
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fsarsva%2Fcover%20sarasva.jpg?alt=media&token=e9f9bed9-14ff-4260-a1ca-8f6bc4c13724",
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Main%20Stage%2FAlaMode%2FScreenshot%202024-10-17%20212502.png?alt=media&token=8773e1d7-b287-4f92-a3b6-41c455e38d91",
+    "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Main%20Stage%2Fpexels-teddy-2263435.jpg?alt=media&token=e57c153a-f73f-4f52-a07f-9907d376b93e"
   ];
+
+
 
   @override
   Widget build(BuildContext context) {

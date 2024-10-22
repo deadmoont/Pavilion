@@ -20,8 +20,16 @@ class SocietyCarousel extends StatelessWidget {
         itemCount: data.length, // Use the length of the data list
         itemBuilder: (BuildContext context, int index, int realIndex) {
           // Get the image URL from the artist data
-          var imageUrl =
-              "https://i.pinimg.com/originals/19/b6/e1/19b6e11237c62e30a0ba84d8aade6b87.jpg";
+          Map<String, String> list = {
+            "Sarasva": "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fsarsva%2Fcover%20sarasva.jpg?alt=media&token=e9f9bed9-14ff-4260-a1ca-8f6bc4c13724",
+            "nirmiti": "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fnirmiti%2F53652925228_b28ccb3b24_o.jpg?alt=media&token=6ecb4670-563e-4a38-a4e3-6e449be01b2d",
+            "AMS": "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fams%2FScreenshot%202024-10-23%20031440.png?alt=media&token=38a45e84-6e10-4179-b404-6cf9a281c0a0",
+            "GeneticX":"https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2FgeneticX%2F53119356397_4b9ba6d9e2_o.jpg?alt=media&token=22b3e698-312c-40bc-80a9-863d31a3adbd",
+            "Rangtarangini": "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Frangtarangini%2Fcover%20rang.jpg?alt=media&token=8add05a3-fb9a-4659-a15f-56e8a7f78539",
+            "Virtuosi": "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fvirtuosi%2F53125815465_ca3b4e2ab6_o.jpg?alt=media&token=a87f1474-d20a-4216-950f-113fc4d2573c",
+            "Informal": "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Main%20Stage%2FAlaMode%2FScreenshot%202024-10-17%20212502.png?alt=media&token=8773e1d7-b287-4f92-a3b6-41c455e38d91",
+            "Main Stage": "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Main%20Stage%2Fpexels-teddy-2263435.jpg?alt=media&token=e57c153a-f73f-4f52-a07f-9907d376b93e",
+          };
 
           return GestureDetector(
             child: InkWell(
@@ -46,9 +54,7 @@ class SocietyCarousel extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: CachedNetworkImage(
-                    imageUrl: imageUrl.isNotEmpty
-                        ? imageUrl
-                        : "fallback_image_url", // Provide a fallback image if URL is empty
+                    imageUrl: list[data[index]] ?? "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fsarsva%2Fcover%20sarasva.jpg?alt=media&token=e9f9bed9-14ff-4260-a1ca-8f6bc4c13724", // Provide a fallback image if URL is empty
                     fit: BoxFit.fill,
                     placeholder: (context, url) =>
                         Center(child: LoadingView(height: 50, width: 50)),

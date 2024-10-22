@@ -226,89 +226,35 @@ class APIs {
           var jsonData = doc.data();
           log('Document Data: $jsonData');
 
-          // Convert jsonData into an Artists object
-          Events events = Events.fromJson(jsonData);
-          fetchedEvents.add(events);
+          // Convert jsonData into an Events object
+          Events event = Events.fromJson(jsonData);
+          fetchedEvents.add(event);
         } catch (e) {
           log('Error while parsing document: $e');
         }
       }
 
-      // Update the artists list with fetched data
+      // Update the events list with fetched data
       eventsList = fetchedEvents;
 
       // Store the fetched data in local storage
       await storage.write(
-          key: "events",
-          value:
-              jsonEncode(eventsList.map((event) => event.toJson()).toList()));
-      log('Fetched ${eventsList.length} event from Firebase and stored in local storage.');
+        key: "events",
+        value: jsonEncode(eventsList.map((event) => event.toJson()).toList()),
+      );
+
+      log('Fetched ${eventsList.length} events from Firebase and stored in local storage.');
     } on FirebaseException catch (e) {
       log('FirebaseException: ${e.message}');
     } catch (e) {
       log('Error fetching documents: $e');
     }
-    return eventsList; // Return the artists list at the end
+
+    return eventsList; // Return the events list at the end
   }
 
-  static Future<List<Events>> fetcheventsData() async {
-    final storage = FlutterSecureStorage();
-    log("Checking local storage for events data...");
-
-    // Try to read data from local storage
-    String? localData = await storage.read(key: "events");
-
-    if (localData != null && localData.isNotEmpty) {
-      log("Data found in local storage, populating events list...");
-
-      try {
-        // Parse local data and populate the artists list
-        List<dynamic> jsonData = jsonDecode(localData);
-        eventsList = jsonData.map((data) => Events.fromJson(data)).toList();
-
-        log('Loaded ${eventsList.length} events from local storage.');
-      } catch (e) {
-        log('Error parsing local storage data: $e');
-      }
-    } else {
-      log("No data found in local storage, fetching from Firebase...");
-
-      try {
-        final querySnapshot =
-            await FirebaseFirestore.instance.collection('Events').get();
-
-        List<Events> fetchedEvents = [];
-        for (var doc in querySnapshot.docs) {
-          try {
-            var jsonData = doc.data();
-            log('Document Data: $jsonData');
-
-            // Convert jsonData into an Artists object
-            Events events = Events.fromJson(jsonData);
-            fetchedEvents.add(events);
-          } catch (e) {
-            log('Error while parsing document: $e');
-          }
-        }
-
-        // Update the artists list with fetched data
-        eventsList = fetchedEvents;
-
-        // Store the fetched data in local storage
-        await storage.write(
-            key: "events",
-            value:
-                jsonEncode(eventsList.map((event) => event.toJson()).toList()));
-        log('Fetched ${eventsList.length} event from Firebase and stored in local storage.');
-      } on FirebaseException catch (e) {
-        log('FirebaseException: ${e.message}');
-      } catch (e) {
-        log('Error fetching documents: $e');
-      }
-    }
-    return eventsList; // Return the artists list at the end
-  }
-
+  // Fetch events data from local storage if available, otherwise fetch from Firebase
+ 
 //--------------FETCH ALL Artist Data--------------------------------------------//
   static Future<void> fetchMerchData() async {
     final storage = FlutterSecureStorage();
@@ -518,56 +464,61 @@ class APIs {
       log('Error fetching documents: $e');
     }
   }
-Future<List<Map<String, Map<String, Map<String, String>>>>> fetchTimeLine() async {
-    if(timeline.length == 0){
+
+  Future<List<Map<String, Map<String, Map<String, String>>>>>
+      fetchTimeLine() async {
+    if (timeline.length == 0) {
       List<Map<String, Map<String, Map<String, String>>>> timelineList = [];
 
-    try {
-      // Fetch the document snapshot from Firestore
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
-          .collection("Days")
-          .doc("events")
-          .get();
+      try {
+        // Fetch the document snapshot from Firestore
+        DocumentSnapshot<Map<String, dynamic>> snapshot =
+            await FirebaseFirestore.instance
+                .collection("Days")
+                .doc("events")
+                .get();
 
-      if (snapshot.exists) {
-        Map<String, dynamic> data = snapshot.data()!;
+        if (snapshot.exists) {
+          Map<String, dynamic> data = snapshot.data()!;
 
-        // Convert map entries to a list and sort by key
-        var sortedEntries = data.entries.toList()
-          ..sort((a, b) => a.key.compareTo(b.key));
+          // Convert map entries to a list and sort by key
+          var sortedEntries = data.entries.toList()
+            ..sort((a, b) => a.key.compareTo(b.key));
 
-        // Iterating through sorted days (e.g., "day0", "day1")
-        for (var entry in sortedEntries) {
-          String dayKey = entry.key;
-          Map<String, dynamic> dayValue = entry.value;
+          // Iterating through sorted days (e.g., "day0", "day1")
+          for (var entry in sortedEntries) {
+            String dayKey = entry.key;
+            Map<String, dynamic> dayValue = entry.value;
 
-          // Prepare a map for events on that day
-          Map<String, Map<String, String>> events = {};
+            // Prepare a map for events on that day
+            Map<String, Map<String, String>> events = {};
 
-          // Iterating through each event in the day
-          dayValue.forEach((eventKey, eventValue) {
-            if (eventValue is Map<String, dynamic>) {
-              // Convert inner event map to Map<String, String>
-              Map<String, String> eventDetails = eventValue.map((key, value) => MapEntry(key, value.toString()));
+            // Iterating through each event in the day
+            dayValue.forEach((eventKey, eventValue) {
+              if (eventValue is Map<String, dynamic>) {
+                // Convert inner event map to Map<String, String>
+                Map<String, String> eventDetails = eventValue
+                    .map((key, value) => MapEntry(key, value.toString()));
 
-              // Add event to the day's events map
-              events[eventKey] = eventDetails;
-            }
-          });
+                // Add event to the day's events map
+                events[eventKey] = eventDetails;
+              }
+            });
 
-          // Add day with its events to the timeline
-          timelineList.add({dayKey: events});
+            // Add day with its events to the timeline
+            timelineList.add({dayKey: events});
+          }
         }
+      } catch (e) {
+        log("Error in getting timeline: $e");
       }
-    } catch (e) {
-      log("Error in getting timeline: $e");
-    }
 
-    return timelineList;
-    }else{
+      return timelineList;
+    } else {
       return timeline;
     }
   }
+
   Future<List<Sponsors>> fetchSponsors() async {
     if (sponsors.length == 0) {
       List<Sponsors> sponsorsList = [];

@@ -3,6 +3,7 @@ import 'package:carousel_slider_plus/carousel_options.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pavilion/models/events.dart';
+import 'package:pavilion/screens/newEventdetail.dart';
 import '../screens/SpecificEvents.dart';
 import 'loading_view.dart';
 
@@ -24,7 +25,7 @@ class MovieCardWidget extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => SpecificEvent(
+                builder: (_) => Neweventdetail(
                   image: event.image ?? '',
                   title: event.title ?? '',
                   des: event.des ?? '',

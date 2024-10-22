@@ -75,7 +75,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
     super.initState();
     artistDataFuture =
         APIs.fetchArtistData(); // Initialize the future in initState
-    eventsDataFuture = APIs.fetcheventsData();
+    eventsDataFuture = APIs.fetcheventsDataFirebase();
     APIs.fetchSocietyData(); // Initialize the future in initState
   }
 
