@@ -47,11 +47,11 @@ class _DevelopersPageState extends State<DevelopersPage> {
 
       for (var doc in snapshot.docs) {
         final data = doc.data() as Map<String, dynamic>;
-        if (data['type'] == 'head') {
+        if (data['type'] == 'Head') {
           tempHeads.add(data);
-        } else if (data['type'] == 'executive') {
+        } else if (data['type'] == 'Executive') {
           tempExecutives.add(data);
-        }else if (data['type'] == 'volunteers') {
+        }else if (data['type'] == 'Volunteers') {
           tempVolunteers.add(data);
         }
       }
