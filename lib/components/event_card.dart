@@ -12,7 +12,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>SpecificEvent(image: event.image, title: "temporary", des: event.description, venue: event.venue)));
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>SpecificEvent(image: event.image, title: event.name, des: event.description, venue: event.venue, form: event.form,)));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16.0),
