@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
 
 class DevelopersPage extends StatefulWidget {
   const DevelopersPage({super.key});
@@ -8,11 +9,56 @@ class DevelopersPage extends StatefulWidget {
 }
 
 class _DevelopersPageState extends State<DevelopersPage> {
+  List<Map<String, dynamic>> heads = [];
+  List<Map<String, dynamic>> executives = [];
+  List<Map<String, dynamic>> volunteers = [];
+  bool isLoading = true; // State to track if data is still loading
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDevelopers();
+  }
+
+  // Fetch developers from Firestore
+  Future<void> fetchDevelopers() async {
+    try {
+      final QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('Developers').get();
+      final List<Map<String, dynamic>> tempHeads = [];
+      final List<Map<String, dynamic>> tempExecutives = [];
+      final List<Map<String, dynamic>> tempVolunteers = [];
+
+      for (var doc in snapshot.docs) {
+        final data = doc.data() as Map<String, dynamic>;
+        if (data['type'] == 'head') {
+          tempHeads.add(data);
+        } else if (data['type'] == 'executive') {
+          tempExecutives.add(data);
+        }else if (data['type'] == 'volunteers') {
+          tempVolunteers.add(data);
+        }
+      }
+
+      setState(() {
+        heads = tempHeads;
+        executives = tempExecutives;
+        volunteers=tempVolunteers;
+        isLoading = false; // Data has been fetched, so stop loading
+      });
+    } catch (e) {
+      print('Error fetching developers: $e');
+      setState(() {
+        isLoading = false; // Stop loading even if there is an error
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: const Color(0xFF3B150E),
       appBar: AppBar(
-        backgroundColor: Color(0xFF3B150E),
+        backgroundColor: const Color(0xFF3B150E),
         title: const Text(
           'Developers',
           style: TextStyle(color: Colors.white),
@@ -24,7 +70,9 @@ class _DevelopersPageState extends State<DevelopersPage> {
           },
         ),
       ),
-      body: Container(
+      body: isLoading
+          ? Container(child: Center(child: CircularProgressIndicator())) // Show loading indicator
+          : Container(
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -42,46 +90,42 @@ class _DevelopersPageState extends State<DevelopersPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
-                const Text(
-                  'Heads',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      buildProfileCard(),
-                      buildProfileCard(),
-                      buildProfileCard(),
-                    ],
+                if (heads.isNotEmpty) ...[
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Heads',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
                   ),
-                ),
+                  const SizedBox(height: 10),
+                  buildGrid(heads),
+                ],
                 const SizedBox(height: 20),
-                const Text(
-                  'Executives',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      buildProfileCard(),
-                      buildProfileCard(),
-                      buildProfileCard(),
-                    ],
+                if (executives.isNotEmpty) ...[
+                  const Text(
+                    'Executives',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
                   ),
-                ),
+                  const SizedBox(height: 10),
+                  buildGrid(executives),
+                ],
+                const SizedBox(height: 20),
+                if (volunteers.isNotEmpty) ...[
+                  const Text(
+                    'Volunteers',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 10),
+                  buildGrid(volunteers),
+                ],
               ],
             ),
           ),
@@ -90,11 +134,36 @@ class _DevelopersPageState extends State<DevelopersPage> {
     );
   }
 
-  Widget buildProfileCard() {
+  // Build grid for heads and executives
+  Widget buildGrid(List<Map<String, dynamic>> items) {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(), // Disable grid scrolling
+      shrinkWrap: true,
+      itemCount: items.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, // Changed to 2 items per row for larger card size
+        childAspectRatio: 0.85, // Increased aspect ratio to make the cards bigger
+        crossAxisSpacing: 8, // Add space between the grid items horizontally
+        mainAxisSpacing: 6, // Add space between the grid items vertically
+      ),
+      itemBuilder: (context, index) {
+        return buildProfileCard(
+          name: items[index]['name'],
+          imageUrl: items[index]['image'],
+        );
+      },
+    );
+  }
+
+  // Dynamic profile card builder
+  Widget buildProfileCard({
+    required String name,
+    required String imageUrl,
+  }) {
     return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: 150,
+        width: 150, // Increased width for larger profile cards
         decoration: BoxDecoration(
           color: Colors.grey[800],
           borderRadius: BorderRadius.circular(16),
@@ -109,32 +178,22 @@ class _DevelopersPageState extends State<DevelopersPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircleAvatar(
-              radius: 40,
+            CircleAvatar(
+              radius: 60, // Further increased the size of the avatar
               backgroundColor: Colors.yellowAccent,
               child: CircleAvatar(
-                radius: 38,
-                backgroundImage: NetworkImage(
-                    'https://tse4.mm.bing.net/th?id=OIP.EKNuu9YV_yUmt0hAy93ppgHaLO&pid=Api&P=0&h=180'),
+                radius: 58,
+                backgroundImage: NetworkImage(imageUrl),
               ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              'Aashray Mahajan',
-              style: TextStyle(
+            Text(
+              name,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
+                  fontSize: 18, // Increased font size
                   fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              'Head',
-              style: TextStyle(fontSize: 14, color: Colors.grey[300]),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              'App Dev Wing',
-              style: TextStyle(fontSize: 14, color: Colors.grey[400]),
             ),
           ],
         ),
