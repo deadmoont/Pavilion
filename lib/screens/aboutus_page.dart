@@ -29,7 +29,9 @@ class AboutUsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Align(
+                Row(
+                  children: [
+                    Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
                     icon: Icon(Icons.arrow_back, color: Colors.white),
@@ -38,33 +40,32 @@ class AboutUsPage extends StatelessWidget {
                     },
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.02), // Responsive spacing
-                Image.asset(
-                  'assets/svgIcons/logo.png',
-                  color: Colors.white,
-                  height: screenHeight * 0.06, // Responsive image size
-                ),
-                SizedBox(height: screenHeight * 0.02), // Responsive spacing
+                const SizedBox(width: 20,),
                 Text(
                   "About Us",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     color: Colors.white,
-                    fontSize: screenHeight * 0.04, // Responsive font size
+                    fontSize: screenHeight * 0.03, // Responsive font size
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.02), // Responsive spacing
+                  ],
+                ),
+                // SizedBox(height: screenHeight * 0.02), // Responsive spacing
+                // Responsive spacing
+                
+                SizedBox(height: screenHeight * 0.04), // Responsive spacing
                 Container(
-                  width: screenWidth * 0.2,
-                  height: screenWidth * 0.2, // Ensure it's circular by using width and height equally
+                  width: screenWidth * 0.3,
+                  height: screenWidth * 0.3, // Ensure it's circular by using width and height equally
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.white, width: 2),
                   ),
-                  child: Image.asset('assets/images/notification.png'),
+                  child: Image.asset('assets/images/notification.png',height: 60,),
                 ),
-                SizedBox(height: screenHeight * 0.02), // Responsive spacing
+                SizedBox(height: screenHeight * 0.03), // Responsive spacing
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                   child: Text(
@@ -92,6 +93,7 @@ class AboutUsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SocialMediaIcon(
+
                       image: 'assets/images/gmail.png',
                       onTap: () {
                         _launchURL('mailto:effervescence@iiita.ac.in');
@@ -106,7 +108,7 @@ class AboutUsPage extends StatelessWidget {
                     SocialMediaIcon(
                       image: 'assets/images/facebook.png',
                       onTap: () {
-                        _launchURL('https://www.facebook.com/example');
+                        _launchURL('https://www.facebook.com/effervescence.iiita/');
                       },
                     ),
                   ],
@@ -156,13 +158,16 @@ class SocialMediaIcon extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          width: screenWidth * 0.12, // Responsive size for icons
-          height: screenWidth * 0.12,
+          width: screenWidth * 0.13, // Responsive size for icons
+          height: screenWidth * 0.13,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white, width: 2),
           ),
-          child: Image.asset(image),
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Image.asset(image),
+          ),
         ),
       ),
     );

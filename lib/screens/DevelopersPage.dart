@@ -19,16 +19,13 @@ class _DevelopersPageState extends State<DevelopersPage> {
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -45,61 +42,6 @@ class _DevelopersPageState extends State<DevelopersPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'App Development Dept',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  'Heads',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      buildProfileCard(),
-                      buildProfileCard(),
-                      buildProfileCard(),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Executives',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      buildProfileCard(),
-                      buildProfileCard(),
-                      buildProfileCard(),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 30),
-                const Text(
-                  'Design Dept',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
                 const SizedBox(height: 10),
                 const Text(
                   'Heads',
