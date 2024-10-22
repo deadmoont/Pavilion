@@ -2,11 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pavilion/database/Apis.dart';
-import 'package:pavilion/models/SocietyEvents.dart';
-import 'package:pavilion/models/event_model.dart';
 import 'package:pavilion/screens/event_screen.dart';
-import '../models/artists.dart';
-import '../screens/SpecificEvents.dart';
 import 'loading_view.dart';
 
 class SocietyCarousel extends StatelessWidget {
@@ -55,7 +51,7 @@ class SocietyCarousel extends StatelessWidget {
                         : "fallback_image_url", // Provide a fallback image if URL is empty
                     fit: BoxFit.fill,
                     placeholder: (context, url) =>
-                        Center(child: LoadingView(height: 80, width: 80)),
+                        Center(child: LoadingView(height: 50, width: 50)),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),

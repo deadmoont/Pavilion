@@ -3,7 +3,7 @@ class SocietyEve {
   String venue;
   String form;
   String image;
-  // String name;
+  String name;
   String date;
 
   SocietyEve({
@@ -11,7 +11,7 @@ class SocietyEve {
     this.venue = '',
     this.form = '',
     this.image = '',
-    // this.name='',
+    this.name='',
     this.date = '',
   });
 
@@ -21,7 +21,7 @@ class SocietyEve {
       venue: json["Venue"] ?? '',
       form: json["form"] ?? '',
       image: json["Image"] ?? '',
-      // name:json["title"] ?? '',
+      name:json["title"] ?? '',
       date: json["Date"] ?? '',
     );
   }
@@ -32,7 +32,7 @@ class SocietyEve {
       "Venue": venue,
       "form": form,
       "Image": image,
-      // "Name": name,
+      "Name": name,
       "Date": date,
     };
   }

@@ -4,13 +4,7 @@ import 'package:bottom_bar_matu/bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pavilion/screens/AllSocietyScreen.dart';
-import 'package:pavilion/screens/DevelopersPage.dart';
-import 'package:pavilion/screens/NewHomeScreen.dart';
-import 'package:pavilion/screens/TeamsPage.dart';
-import 'package:pavilion/screens/TicketScreen.dart';
 import 'package:pavilion/screens/loadingScreen.dart';
-import 'package:pavilion/screens/merchScreen.dart';
-import 'package:pavilion/screens/profileScreen.dart';
 import 'package:pavilion/screens/timelineScreen.dart';
 
 import '../screens/PhotoWallScreen.dart';

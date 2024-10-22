@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/database/Apis.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SpecificEvent extends StatefulWidget {
   final String image;
   final String title;
   final String des;
   final String venue;
+  final String form;
 
-  const SpecificEvent({super.key, required this.image, required this.title, required this.des, required this.venue});
-
+  const SpecificEvent({super.key, required this.image, required this.title, required this.des, required this.venue,required this.form});
 
   @override
   _SpecificEventState createState() => _SpecificEventState();
@@ -17,21 +20,23 @@ class SpecificEvent extends StatefulWidget {
 class _SpecificEventState extends State<SpecificEvent> {
   bool _isLoading = false;
 
-  Future<void> _fetchParticipants() async {
-    setState(() {
-      _isLoading = true; // Start the loader
-    });
+  void _launchURL(String url) async {
+    Uri uri = Uri.parse(url);
 
+    // Use launchUrl directly to attempt opening the URL
     try {
-      await APIs.test();
+      bool launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication, // Opens in an external browser/app
+      );
+      if (!launched) {
+        throw 'Could not launch $url';
+      }
     } catch (e) {
-      // Handle any errors if needed
-    } finally {
-      setState(() {
-        _isLoading = false; // Stop the loader
-      });
+      print('Error: $e');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +50,28 @@ class _SpecificEventState extends State<SpecificEvent> {
             left: 0,
             right: 0,
             height: MediaQuery.of(context).size.height * 0.5, // Cover top half
-            child: Image.network(
-              widget.image,
-              fit: BoxFit.cover,
+            child: Stack(
+              children: [
+                Image.network(
+                  widget.image,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child; // Image is fully loaded
+                    } else {
+                      // While the image is loading, return an empty container
+                      return Container(
+                        child: const Center(
+                          child: LoadingView(height: 60, width: 60), // Show loading indicator while the image is loading
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           ),
+
           // Bottom Black Background (half screen)
           Positioned(
             top: MediaQuery.of(context).size.height * 0.5,
@@ -67,24 +89,16 @@ class _SpecificEventState extends State<SpecificEvent> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Back button
-                  IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.of(context).pop(),
-                    color: Colors.black54,
-                  ),
-                  // Favorite and Share Icons
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.favorite_border, color: Colors.white),
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.share, color: Colors.white),
-                        onPressed: () {},
-                      ),
-                    ],
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black54, // Black with some transparency
+                      borderRadius: BorderRadius.circular(50), // Rounded corners (optional)
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    padding: const EdgeInsets.all(4), // Padding inside the button for a larger tap area
                   ),
                 ],
               ),
@@ -114,14 +128,6 @@ class _SpecificEventState extends State<SpecificEvent> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'SHOW',
-                            style: TextStyle(
-                              color: Colors.white54,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
                             widget.title,
                             style: TextStyle(
                               color: Colors.white,
@@ -130,7 +136,7 @@ class _SpecificEventState extends State<SpecificEvent> {
                             ),
                           ),
                           Text(
-                            'Starting 9:10 PM',
+                            'Time  9:10 PM',
                             style: TextStyle(
                               color: Colors.white54,
                               fontSize: 16,
@@ -138,142 +144,69 @@ class _SpecificEventState extends State<SpecificEvent> {
                           ),
                         ],
                       ),
-                      // Date Box
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.purpleAccent,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              'DEC',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '21',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                   SizedBox(height: 20),
-                  // About and Participants Buttons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // About Button
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text('ABOUT', style: TextStyle(color: Colors.black)),
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      // Participants Button with Loader
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: _isLoading ? null : _fetchParticipants, // Disable if loading
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF1D1D1D),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: _isLoading
-                              ? CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
-                          )
-                              : Text('Participants', style: TextStyle(color: Colors.grey)),
-                        ),
-                      ),
-                    ],
+                  // Description of the Event
+                  Text(
+                    'About Event:',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(height: 30),
-                  // Event Description and other UI elements
+                  SizedBox(height: 10),
                   Text(
                     widget.des,
-                    style: TextStyle(color: Colors.white70, fontSize: 20),
+                    style: TextStyle(color: Colors.white70, fontSize: 16),
                   ),
                   SizedBox(height: 20),
                   // Location Section
                   Text(
-                    widget.venue,
+                    'Venue: ${widget.venue}',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
                   SizedBox(height: 20),
-                  // Price and Buy Ticket Section
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'PRICE',
-                              style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              '\$17.60/person',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                  // Apply Button
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                          // Show toast message if link is not available
+                          if(widget.form==""){
+                              Fluttertoast.showToast(
+                              msg: "Link not available", // Toast message
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.brown, // Background color of the toast
+                              textColor: Colors.white, // Text color of the toast
+                            );
+                          }
+                          else{
+                            _launchURL(widget.form);
+                          }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.purpleAccent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Text('BUY A TICKET'),
-                              SizedBox(width: 5),
-                              Icon(Icons.add_shopping_cart),
-                            ],
-                          ),
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      ),
+                      child: Text(
+                        'Apply for Event',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
+                      ),
                     ),
+
                   ),
+                  SizedBox(height: 10),
                 ],
               ),
             ),

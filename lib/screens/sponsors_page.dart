@@ -46,7 +46,7 @@ class _SponsorPageState extends State<SponsorPage> {
           future: fetchSponsors(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: LoadingView(height: 100, width: 100));
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error fetching sponsors'));
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -71,6 +71,23 @@ class _SponsorPageState extends State<SponsorPage> {
   }
 }
 
+Widget _buildPlaceholder() {
+  return Container(
+    height: 250,
+    decoration: BoxDecoration(
+      color: Colors.grey[300], // Background color
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(12.0),
+      child: Image.asset(
+        'assets/images/placeholder.png',
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+}
+
 class SponsorCard extends StatelessWidget {
   final String logo;
   final String name;
@@ -86,10 +103,10 @@ class SponsorCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF171A1F), // Background color similar to the image
+        color: Color(0xFF3D0101).withOpacity(0.3), // Background color similar to the image
         borderRadius: BorderRadius.circular(10), // Rounded corners for the card
         border: Border.all(
-          color: Colors.white.withOpacity(0.1), // Slightly transparent white border
+          color: Colors.white.withOpacity(0.8), // Slightly transparent white border
           width: 1.5, // Thickness of the border
         ),
       ),
@@ -100,16 +117,26 @@ class SponsorCard extends StatelessWidget {
           // Logo container with borderRadius
           Container(
             width: 150,
-            height: 150,
+            height: 120,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Color(0xFF3D0101).withOpacity(0.3),
               borderRadius: BorderRadius.circular(20), // Border radius for the image itself
-              image: DecorationImage(
-                image: NetworkImage(logo), // NetworkImage or AssetImage for logos
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Clip the image to match the container's border radius
+              child: Image.network(
+                logo, // The URL for the logo
                 fit: BoxFit.contain, // Ensures the logo is well-contained
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child; // Image loaded successfully
+                  }
+                  return _buildPlaceholder(); // Shimmer placeholder while loading
+                },
               ),
             ),
           ),
+
           SizedBox(width: 20), // Spacing between logo and text
           // Sponsor Info
           Expanded(

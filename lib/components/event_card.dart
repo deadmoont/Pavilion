@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/models/SocietyEvents.dart';
 import 'package:pavilion/screens/SpecificEvents.dart';
-import '../models/event_model.dart';
-
 class EventCard extends StatelessWidget {
   final SocietyEve event;
 
@@ -13,7 +12,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>SpecificEvent(image: event.image, title: "temporary", des: event.description, venue: event.venue)));
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>SpecificEvent(image: event.image, title: event.name, des: event.description, venue: event.venue, form: event.form,)));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 16.0),
@@ -34,7 +33,7 @@ class EventCard extends StatelessWidget {
                   height: 100,
                   color: Colors.grey[200],
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: LoadingView(height: 50, width: 50),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
@@ -50,7 +49,7 @@ class EventCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "temporary event", // Updated to use the event name dynamically
+                event.name, // Updated to use the event name dynamically
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,

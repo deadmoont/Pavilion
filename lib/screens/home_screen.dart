@@ -22,6 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Artists>>
       artistDataFuture; // Declare a future variable to hold artist data
   late Future<List<Events>> eventsDataFuture;
+  late Future<List<Events>> firstHalfEventsFuture;
+  late Future<List<Events>> secondHalfEventsFuture;
+
+
   List<String> societylist = [
     "AMS",
     "GeneticX",
@@ -30,7 +34,22 @@ class _HomeScreenState extends State<HomeScreen> {
     "Virtuosi",
     "sarasva"
   ];
-  final api = APIs();
+
+  // Method to fetch and split events data into two halves
+  void _splitEventsData() {
+    // Fetch the full list of events
+    Future<List<Events>> fullEventsDataFuture = APIs.fetcheventsData();
+
+    firstHalfEventsFuture = fullEventsDataFuture.then((events) {
+      int halfLength = (events.length / 2).ceil();
+      return events.sublist(0, halfLength); // First half
+    });
+
+    secondHalfEventsFuture = fullEventsDataFuture.then((events) {
+      int halfLength = (events.length / 2).ceil();
+      return events.sublist(halfLength); // Second half
+    });
+  }
 
   @override
   void initState() {
@@ -39,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         APIs.fetchArtistData(); // Initialize the future in initState
     eventsDataFuture = APIs.fetcheventsData();
     APIs.fetchSocietyData(); // Initialize the future in initState
+    _splitEventsData();
   }
 
   @override

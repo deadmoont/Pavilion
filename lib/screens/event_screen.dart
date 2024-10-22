@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pavilion/database/Apis.dart';
 import 'package:pavilion/models/SocietyEvents.dart';
 import '../components/event_card.dart';
-import '../models/event_model.dart';
 
 class EventScreen extends StatefulWidget {
   final String item;
