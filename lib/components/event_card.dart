@@ -3,8 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/models/SocietyEvents.dart';
 import 'package:pavilion/screens/SpecificEvents.dart';
-import '../models/event_model.dart';
-
 class EventCard extends StatelessWidget {
   final SocietyEve event;
 
@@ -51,7 +49,7 @@ class EventCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "temporary event", // Updated to use the event name dynamically
+                event.name, // Updated to use the event name dynamically
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,

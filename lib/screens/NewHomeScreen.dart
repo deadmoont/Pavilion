@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pavilion/components/NewCustom_Carousel.dart';
 import 'package:pavilion/components/NewSocietyCarousel.dart';
-import 'package:pavilion/models/SocietyEvents.dart';
-
-import '../components/custom_carousel.dart';
 import '../components/loading_view.dart';
 import '../database/Apis.dart';
 import '../models/artists.dart';

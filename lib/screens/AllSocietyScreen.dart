@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -111,6 +113,7 @@ class _AllSocietyScreenState extends State<AllSocietyScreen> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
+                  log("hello bro  ${societyList[index]["title"]}");
                   Navigator.push(
                     context,
                     MaterialPageRoute(

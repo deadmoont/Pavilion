@@ -10,7 +10,6 @@ class SpecificEvent extends StatefulWidget {
 
   const SpecificEvent({super.key, required this.image, required this.title, required this.des, required this.venue});
 
-
   @override
   _SpecificEventState createState() => _SpecificEventState();
 }
@@ -68,17 +67,6 @@ class _SpecificEventState extends State<SpecificEvent> {
             ),
           ),
 
-
-          // Positioned(
-          //   top: 0,
-          //   left: 0,
-          //   right: 0,
-          //   height: MediaQuery.of(context).size.height * 0.5, // Cover top half
-          //   child: Image.network(
-          //     widget.image,
-          //     fit: BoxFit.cover,
-          //   ),
-          // ),
           // Bottom Black Background (half screen)
           Positioned(
             top: MediaQuery.of(context).size.height * 0.5,
@@ -96,12 +84,6 @@ class _SpecificEventState extends State<SpecificEvent> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // // Back button
-                  // IconButton(
-                  //   icon: Icon(Icons.arrow_back, color: Colors.white),
-                  //   onPressed: () => Navigator.of(context).pop(),
-                  //   color: Colors.black54,
-                  // ),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.black54, // Black with some transparency
@@ -141,14 +123,6 @@ class _SpecificEventState extends State<SpecificEvent> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'SHOW',
-                            style: TextStyle(
-                              color: Colors.white54,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
                             widget.title,
                             style: TextStyle(
                               color: Colors.white,
@@ -157,7 +131,7 @@ class _SpecificEventState extends State<SpecificEvent> {
                             ),
                           ),
                           Text(
-                            'Starting 9:10 PM',
+                            'Time  9:10 PM',
                             style: TextStyle(
                               color: Colors.white54,
                               fontSize: 16,
@@ -168,63 +142,47 @@ class _SpecificEventState extends State<SpecificEvent> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  // About and Participants Buttons
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // About Button
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text('ABOUT', style: TextStyle(color: Colors.black)),
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      // Participants Button with Loader
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: (){},
-                          // onPressed: _isLoading ? null : _fetchParticipants, // Disable if loading
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF1D1D1D),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: _isLoading
-                              ? CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.grey),
-                          )
-                              : Text('Participants', style: TextStyle(color: Colors.grey)),
-                        ),
-                      ),
-                    ],
+                  // Description of the Event
+                  Text(
+                    'About Event:',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  SizedBox(height: 30),
-                  // Event Description and other UI elements
+                  SizedBox(height: 10),
                   Text(
                     widget.des,
-                    style: TextStyle(color: Colors.white70, fontSize: 20),
+                    style: TextStyle(color: Colors.white70, fontSize: 16),
                   ),
                   SizedBox(height: 20),
                   // Location Section
                   Text(
-                    widget.venue,
+                    'Venue: ${widget.venue}',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
                   SizedBox(height: 20),
+                  // Apply Button
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Action for applying to the event
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      ),
+                      child: Text('Apply for Event', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  SizedBox(height: 10),
                 ],
               ),
             ),

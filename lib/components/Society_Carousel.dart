@@ -2,11 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pavilion/database/Apis.dart';
-import 'package:pavilion/models/SocietyEvents.dart';
-import 'package:pavilion/models/event_model.dart';
 import 'package:pavilion/screens/event_screen.dart';
-import '../models/artists.dart';
-import '../screens/SpecificEvents.dart';
 import 'loading_view.dart';
 
 class SocietyCarousel extends StatelessWidget {
