@@ -369,27 +369,29 @@ class _TeamPageState extends State<TeamPage> {
             ),
           ),
           padding: EdgeInsets.all(12.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                role,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  role,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 16.0),
-              // Display the heads of the department
-              ...heads.map((head) {
-                return _buildTeamMember(
-                  name: head['name']!,
-                  role: head['role']!,
-                  imageUrl: head['imageUrl']!,
-                );
-              }).toList(),
-            ],
+                SizedBox(height: 16.0),
+                // Display the heads of the department
+                ...heads.map((head) {
+                  return _buildTeamMember(
+                    name: head['name']!,
+                    role: head['role']!,
+                    imageUrl: head['imageUrl']!,
+                  );
+                }).toList(),
+              ],
+            ),
           ),
         );
       },
