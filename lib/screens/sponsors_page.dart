@@ -86,7 +86,7 @@ class SponsorCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF2C2F48), // Background color similar to the image
+        color: Color(0xFF171A1F), // Background color similar to the image
         borderRadius: BorderRadius.circular(10), // Rounded corners for the card
         border: Border.all(
           color: Colors.white.withOpacity(0.1), // Slightly transparent white border
@@ -99,8 +99,8 @@ class SponsorCard extends StatelessWidget {
         children: [
           // Logo container with borderRadius
           Container(
-            width: 130,
-            height: 130,
+            width: 150,
+            height: 150,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20), // Border radius for the image itself
@@ -116,12 +116,15 @@ class SponsorCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  name,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Center(
+                  child: Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

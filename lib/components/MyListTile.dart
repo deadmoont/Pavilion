@@ -8,6 +8,7 @@ class MyListTile extends StatefulWidget {
   final String image;
   final String name;
   final String venue;
+  final String timestamp;
 
   const MyListTile({
     super.key,
@@ -16,6 +17,7 @@ class MyListTile extends StatefulWidget {
     required this.image,
     required this.name,
     required this.venue,
+    required this.timestamp,
   });
 
   @override
@@ -54,8 +56,8 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 110,
+    return Padding(
+      padding: EdgeInsets.all(15),
       child: SlideTransition(
         position: _offsetAnimation,
         child: TimelineTile(
@@ -82,24 +84,24 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
                   crossAxisAlignment: CrossAxisAlignment.center, // Center vertically
                   children: [
                     // Image section
-                    Padding(
-                      padding: const EdgeInsets.all(10.0), // Adjust padding for better alignment
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: Image.network(
-                            widget.image,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(10.0), // Adjust padding for better alignment
+                    //   child: ClipRRect(
+                    //     borderRadius: BorderRadius.circular(8),
+                    //     child: SizedBox(
+                    //       width: 60,
+                    //       height: 60,
+                    //       child: Image.network(
+                    //         widget.image,
+                    //         fit: BoxFit.cover,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     // Text section
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -114,15 +116,29 @@ class _MyListTileState extends State<MyListTile> with SingleTickerProviderStateM
                             ),
                             const SizedBox(height: 4),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Icon(
-                                  Icons.location_on,
-                                  size: 16,
-                                  color: Colors.blueGrey,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on,
+                                      size: 16,
+                                      color: Colors.blueGrey,
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      widget.venue,
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 4),
+                                SizedBox(width: 10,),
                                 Text(
-                                  widget.venue,
+                                  widget.timestamp,
                                   style: GoogleFonts.montserrat(
                                     fontSize: 14,
                                     color: Colors.grey,
