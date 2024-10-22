@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/database/Apis.dart';
 
 class SpecificEvent extends StatefulWidget {
@@ -45,11 +46,39 @@ class _SpecificEventState extends State<SpecificEvent> {
             left: 0,
             right: 0,
             height: MediaQuery.of(context).size.height * 0.5, // Cover top half
-            child: Image.network(
-              widget.image,
-              fit: BoxFit.cover,
+            child: Stack(
+              children: [
+                Image.network(
+                  widget.image,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child; // Image is fully loaded
+                    } else {
+                      // While the image is loading, return an empty container
+                      return Container(
+                        child: const Center(
+                          child: LoadingView(height: 90, width: 90), // Show loading indicator while the image is loading
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
           ),
+
+
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   height: MediaQuery.of(context).size.height * 0.5, // Cover top half
+          //   child: Image.network(
+          //     widget.image,
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
           // Bottom Black Background (half screen)
           Positioned(
             top: MediaQuery.of(context).size.height * 0.5,
@@ -67,24 +96,22 @@ class _SpecificEventState extends State<SpecificEvent> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Back button
-                  IconButton(
-                    icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.of(context).pop(),
-                    color: Colors.black54,
-                  ),
-                  // Favorite and Share Icons
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.favorite_border, color: Colors.white),
-                        onPressed: () {},
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.share, color: Colors.white),
-                        onPressed: () {},
-                      ),
-                    ],
+                  // // Back button
+                  // IconButton(
+                  //   icon: Icon(Icons.arrow_back, color: Colors.white),
+                  //   onPressed: () => Navigator.of(context).pop(),
+                  //   color: Colors.black54,
+                  // ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black54, // Black with some transparency
+                      borderRadius: BorderRadius.circular(50), // Rounded corners (optional)
+                    ),
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                    padding: const EdgeInsets.all(4), // Padding inside the button for a larger tap area
                   ),
                 ],
               ),
@@ -138,34 +165,6 @@ class _SpecificEventState extends State<SpecificEvent> {
                           ),
                         ],
                       ),
-                      // Date Box
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.purpleAccent,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              'DEC',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '21',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -191,7 +190,8 @@ class _SpecificEventState extends State<SpecificEvent> {
                       // Participants Button with Loader
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: _isLoading ? null : _fetchParticipants, // Disable if loading
+                          onPressed: (){},
+                          // onPressed: _isLoading ? null : _fetchParticipants, // Disable if loading
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFF1D1D1D),
                             shape: RoundedRectangleBorder(
@@ -225,55 +225,6 @@ class _SpecificEventState extends State<SpecificEvent> {
                   ),
                   SizedBox(height: 10),
                   SizedBox(height: 20),
-                  // Price and Buy Ticket Section
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'PRICE',
-                              style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              '\$17.60/person',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.purpleAccent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Text('BUY A TICKET'),
-                              SizedBox(width: 5),
-                              Icon(Icons.add_shopping_cart),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),

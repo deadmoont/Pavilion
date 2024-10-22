@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/models/SocietyEvents.dart';
 import 'package:pavilion/screens/SpecificEvents.dart';
 import '../models/event_model.dart';
@@ -34,7 +35,7 @@ class EventCard extends StatelessWidget {
                   height: 100,
                   color: Colors.grey[200],
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: LoadingView(height: 40, width: 40),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
