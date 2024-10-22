@@ -7,22 +7,21 @@ class TeamPage extends StatefulWidget {
 
 class _TeamPageState extends State<TeamPage> {
   final List<String> teamRoles = [
-    'App Development',
     'Board of Festival Organizers',
-    'Branding and Logistics',
-    'Creatives',
-    'Events and Managements',
-    'Media and Publicity',
+    'Overall coordinators',
+    'Operations head',
     'Finance',
+    'Events and Managements',
+    'Sponsorship and Marketing',
     'Public Relations',
+    'Technical',
     'Filming',
     'Hospitality and Travels',
-    'Operations head',
-    'Overall coordinators',
-    'Sponsorship and Marketing',
-    'Social Media',
-    'Technical',
+    'Media and Publicity',
+    'Creatives',
     'Web Development',
+    'App Development',
+    'Branding and Logistics',
   ];
 
   // Hardcoded JSON-like structure for department heads
