@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pavilion/components/loading_view.dart';
 import 'package:pavilion/database/Apis.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SpecificEvent extends StatefulWidget {
   final String image;
   final String title;
   final String des;
   final String venue;
+  final String form;
 
-  const SpecificEvent({super.key, required this.image, required this.title, required this.des, required this.venue});
+  const SpecificEvent({super.key, required this.image, required this.title, required this.des, required this.venue,required this.form});
 
   @override
   _SpecificEventState createState() => _SpecificEventState();
@@ -17,21 +20,23 @@ class SpecificEvent extends StatefulWidget {
 class _SpecificEventState extends State<SpecificEvent> {
   bool _isLoading = false;
 
-  Future<void> _fetchParticipants() async {
-    setState(() {
-      _isLoading = true; // Start the loader
-    });
+  void _launchURL(String url) async {
+    Uri uri = Uri.parse(url);
 
+    // Use launchUrl directly to attempt opening the URL
     try {
-      await APIs.test();
+      bool launched = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication, // Opens in an external browser/app
+      );
+      if (!launched) {
+        throw 'Could not launch $url';
+      }
     } catch (e) {
-      // Handle any errors if needed
-    } finally {
-      setState(() {
-        _isLoading = false; // Stop the loader
-      });
+      print('Error: $e');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +176,19 @@ class _SpecificEventState extends State<SpecificEvent> {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        // Action for applying to the event
+                          // Show toast message if link is not available
+                          if(widget.form==""){
+                              Fluttertoast.showToast(
+                              msg: "Link not available", // Toast message
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.brown, // Background color of the toast
+                              textColor: Colors.white, // Text color of the toast
+                            );
+                          }
+                          else{
+                            _launchURL(widget.form);
+                          }
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -179,8 +196,15 @@ class _SpecificEventState extends State<SpecificEvent> {
                         ),
                         padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       ),
-                      child: Text('Apply for Event', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                      child: Text(
+                        'Apply for Event',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
+
                   ),
                   SizedBox(height: 10),
                 ],

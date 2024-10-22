@@ -29,6 +29,7 @@ class MovieCardWidget extends StatelessWidget {
                   title: event.title ?? '',
                   des: event.des ?? '',
                   venue: event.venue ?? '',
+                  form: event.form ?? '',
                 ),
               ),
             );
