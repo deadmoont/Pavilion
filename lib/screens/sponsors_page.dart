@@ -71,6 +71,23 @@ class _SponsorPageState extends State<SponsorPage> {
   }
 }
 
+Widget _buildPlaceholder() {
+  return Container(
+    height: 250,
+    decoration: BoxDecoration(
+      color: Colors.grey[300], // Background color
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(12.0),
+      child: Image.asset(
+        'assets/images/placeholder.png',
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+}
+
 class SponsorCard extends StatelessWidget {
   final String logo;
   final String name;
@@ -102,14 +119,24 @@ class SponsorCard extends StatelessWidget {
             width: 150,
             height: 120,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Color(0xFF3D0101).withOpacity(0.3),
               borderRadius: BorderRadius.circular(20), // Border radius for the image itself
-              image: DecorationImage(
-                image: NetworkImage(logo), // NetworkImage or AssetImage for logos
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20), // Clip the image to match the container's border radius
+              child: Image.network(
+                logo, // The URL for the logo
                 fit: BoxFit.contain, // Ensures the logo is well-contained
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child; // Image loaded successfully
+                  }
+                  return _buildPlaceholder(); // Shimmer placeholder while loading
+                },
               ),
             ),
           ),
+
           SizedBox(width: 20), // Spacing between logo and text
           // Sponsor Info
           Expanded(
