@@ -41,7 +41,7 @@ class _TeamPageState extends State<TeamPage> {
   {
   'name': 'Om Khangat',
   'role': 'President',
-  'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Effervescence%20clubs%2FBOFO%2FWhatsApp%20Image%202024-10-23%20at%2000.04.19_f9090f4a.jpg?alt=media&token=65854b2d-3291-49cc-84e4-bca74228422a'},
+  'imageUrl': 'https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Effervescence%20clubs%2FBOFO%2Fom%20kahngat.png?alt=media&token=f78cca60-5673-45dc-8e6f-4a0c98391d58'},
   ],
   'Operations head': [
   {
@@ -161,7 +161,7 @@ class _TeamPageState extends State<TeamPage> {
   'name': 'Siddharth Thota',
   'role': 'Head, Filming',
   'imageUrl':
-  'https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Effervescence%20clubs%2FFilming%2FROHIT%20G.png?alt=media&token=5a75e46c-6ab4-4477-9140-012c588675c9'
+  'https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/Effervescence%20clubs%2FFilming%2FIMG_4464%20-%20siddhartha%20thota.jpeg?alt=media&token=a4ea7194-3c7c-46a2-974a-b4ca250e12a1'
   },
   {
   'name': 'Rohith G',
