@@ -37,12 +37,19 @@ class _EventScreenState extends State<EventScreen> {
         ),
         centerTitle: true,
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemCount: widget.list.length,
-        itemBuilder: (context, index) {
-          return EventCard(event: widget.list[index]);
+      body: RefreshIndicator(
+        onRefresh: () async {
+          setState(() {
+            APIs.fetchSocietyDataFirebase();
+          });
         },
+        child: ListView.builder(
+          padding: const EdgeInsets.all(16.0),
+          itemCount: widget.list.length,
+          itemBuilder: (context, index) {
+            return EventCard(event: widget.list[index]);
+          },
+        ),
       ),
     );
   }

@@ -52,53 +52,61 @@ class _PhotowallScreenState extends State<PhotowallScreen> {
         centerTitle: false,
         backgroundColor: const Color(0xFF3B150E),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF3B150E), // Light red at the top
-              Color(0xFF1A0C08), // Black at the bottom
-            ],
+      body: RefreshIndicator(
+        onRefresh: ()async {
+           List<String> fetchedImages = await api.fetchPhotoWallFirebase();
+      setState(() {
+        images = fetchedImages;
+      });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFF3B150E), // Light red at the top
+                Color(0xFF1A0C08), // Black at the bottom
+              ],
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-          child: isLoading
-              ? const Center(child: LoadingView(height: 100, width: 100))
-              : images.isEmpty
-              ? const Center(child: Text('No images found.'))
-              : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: MasonryGridView.builder(
-              gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: images.length,
-              itemBuilder: (context, index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(12.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2.0),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.network(
-                        images[index],
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.broken_image);
-                        },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+            child: isLoading
+                ? const Center(child: LoadingView(height: 100, width: 100))
+                : images.isEmpty
+                ? const Center(child: Text('No images found.'))
+                : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: MasonryGridView.builder(
+                gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: images.length,
+                itemBuilder: (context, index) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 2.0),
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: Image.network(
+                          images[index],
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.broken_image);
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-              mainAxisSpacing: 14.0,
-              crossAxisSpacing: 14.0,
+                  );
+                },
+                mainAxisSpacing: 14.0,
+                crossAxisSpacing: 14.0,
+              ),
             ),
           ),
         ),
