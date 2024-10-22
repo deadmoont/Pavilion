@@ -86,10 +86,10 @@ class SponsorCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF171A1F), // Background color similar to the image
+        color: Color(0xFF3D0101).withOpacity(0.3), // Background color similar to the image
         borderRadius: BorderRadius.circular(10), // Rounded corners for the card
         border: Border.all(
-          color: Colors.white.withOpacity(0.1), // Slightly transparent white border
+          color: Colors.white.withOpacity(0.8), // Slightly transparent white border
           width: 1.5, // Thickness of the border
         ),
       ),
@@ -100,7 +100,7 @@ class SponsorCard extends StatelessWidget {
           // Logo container with borderRadius
           Container(
             width: 150,
-            height: 150,
+            height: 120,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20), // Border radius for the image itself
