@@ -26,10 +26,10 @@ class Events {
 
   Map<String, dynamic> toJson() {
     return {
-      "date": date,
-      "image": image,
-      "venue": venue,
-      "des": des,
+      "Date": date,
+      "Image": image,
+      "Venue": venue,
+      "Description": des,
       "title": title,
       "form":form,
     };

@@ -253,6 +253,62 @@ class APIs {
     return eventsList; // Return the events list at the end
   }
 
+  static Future<List<Events>> fetcheventsData() async {
+    final storage = FlutterSecureStorage();
+    log("Checking local storage for events data...");
+
+    // Try to read data from local storage
+    String? localData = await storage.read(key: "events");
+
+    if (localData != null && localData.isNotEmpty) {
+      log("Data found in local storage, populating events list...");
+
+      try {
+        // Parse local data and populate the artists list
+        List<dynamic> jsonData = jsonDecode(localData);
+        eventsList = jsonData.map((data) => Events.fromJson(data)).toList();
+
+        log('Loaded ${eventsList.length} events from local storage.');
+      } catch (e) {
+        log('Error parsing local storage data: $e');
+      }
+    } else {
+      log("No data found in local storage, fetching from Firebase...");
+
+      try {
+        final querySnapshot = await FirebaseFirestore.instance
+            .collection('Events')
+            .get();
+
+        List<Events> fetchedEvents = [];
+        for (var doc in querySnapshot.docs) {
+          try {
+            var jsonData = doc.data();
+            log('Document Data: $jsonData');
+
+            // Convert jsonData into an Artists object
+            Events events = Events.fromJson(jsonData);
+            fetchedEvents.add(events);
+          } catch (e) {
+            log('Error while parsing document: $e');
+          }
+        }
+
+        // Update the artists list with fetched data
+        eventsList = fetchedEvents;
+
+        // Store the fetched data in local storage
+        await storage.write(key: "events", value: jsonEncode(eventsList.map((event) => event.toJson()).toList()));
+        log('Fetched ${eventsList.length} event from Firebase and stored in local storage.');
+      } on FirebaseException catch (e) {
+        log('FirebaseException: ${e.message}');
+      } catch (e) {
+        log('Error fetching documents: $e');
+      }
+    }
+    return eventsList; // Return the artists list at the end
+  }
+
   // Fetch events data from local storage if available, otherwise fetch from Firebase
  
 //--------------FETCH ALL Artist Data--------------------------------------------//

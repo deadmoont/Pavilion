@@ -32,7 +32,7 @@ class SocietyEve {
       "Venue": venue,
       "form": form,
       "Image": image,
-      "Name": name,
+      "title": name,
       "Date": date,
     };
   }

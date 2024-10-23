@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // Method to fetch and split events data into two halves
   void _splitEventsData() {
     // Fetch the full list of events
-    Future<List<Events>> fullEventsDataFuture = APIs.fetcheventsDataFirebase();
+    Future<List<Events>> fullEventsDataFuture = APIs.fetcheventsData();
 
     firstHalfEventsFuture = fullEventsDataFuture.then((events) {
       int halfLength = (events.length / 2).ceil();
