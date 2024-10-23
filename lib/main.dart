@@ -1,9 +1,13 @@
+import 'dart:developer';
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pavilion/firebase_options.dart';
 import 'api/notif_api.dart';
 import 'screens/SplashScreen.dart';
+import 'screens/ErrorScreen.dart'; // Import your error screen
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -23,8 +27,18 @@ void main() async {
     }).catchError((error) {
       print('Failed to subscribe to topic: $error');
     });
+    log("hello1");
 
-    await FirebaseApi().initNotifications();
+    try {
+      await FirebaseApi().initNotifications();
+      log("hello2");
+    } catch (e) {
+      log("Error during notification initialization: $e");
+      // Navigate to error page
+      // navigatorKey.currentState?.pushReplacement(
+      //   MaterialPageRoute(builder: (context) => ErrorScreen()), // Replace with your error screen
+      // );
+    }
   } else {
     print('Notifications will not be initialized as permission is denied.');
   }
@@ -34,6 +48,7 @@ void main() async {
 
 Future<bool> requestNotificationPermission() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,
@@ -64,7 +79,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Effervescence'24",
-      home: SplashScreen(),
+      navigatorKey: navigatorKey, // Set the navigator key here
+      home:  SplashScreen(),
     );
   }
 }

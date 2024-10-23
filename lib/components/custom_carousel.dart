@@ -41,9 +41,18 @@ class CustomCarouselSlider extends StatelessWidget {
                       16), // Match the border radius with ClipRRect
                 ),
                 child: InkWell(
-                  onTap: (){
-                    // log("hello reel url :  ${data[index].reels}");
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>Detailcard(videoUrl: data[index].reels, title: data[index].name, des: data[index].desc, venue: data[index].venue,)));
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => Detailcard(
+                          videoUrl: data[index].reels,
+                          title: data[index].name,
+                          des: data[index].desc,
+                          venue: data[index].venue,
+                        ),
+                      ),
+                    );
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(
@@ -52,11 +61,13 @@ class CustomCarouselSlider extends StatelessWidget {
                       imageUrl: imageUrl.isNotEmpty
                           ? imageUrl
                           : "fallback_image_url", // Provide a fallback image if URL is empty
-                      fit:
-                          BoxFit.cover, // Ensure the image covers the container
-                      placeholder: (context, url) =>
-                          Center(child: LoadingView(height: 70, width: 70)),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover, // Ensure the image covers the container
+                      placeholder: (context, url) => Image.asset(
+                          "assets/images/placeholder.png",
+                          fit: BoxFit.cover), // Placeholder image
+                      errorWidget: (context, url, error) => Image.asset(
+                          "assets/images/placeholder.png",
+                          fit: BoxFit.cover), // Placeholder on error
                     ),
                   ),
                 ),

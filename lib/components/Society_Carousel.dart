@@ -56,9 +56,12 @@ class SocietyCarousel extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: list[data[index]] ?? "https://firebasestorage.googleapis.com/v0/b/first-e6681.appspot.com/o/cover%20page%2Fsarsva%2Fcover%20sarasva.jpg?alt=media&token=e9f9bed9-14ff-4260-a1ca-8f6bc4c13724", // Provide a fallback image if URL is empty
                     fit: BoxFit.fill,
-                    placeholder: (context, url) =>
-                        Center(child: LoadingView(height: 50, width: 50)),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    placeholder: (context, url) => Image.asset(
+                        "assets/images/placeholder.png",
+                        fit: BoxFit.cover), // Placeholder image
+                    errorWidget: (context, url, error) => Image.asset(
+                        "assets/images/placeholder.png",
+                        fit: BoxFit.cover),
                   ),
                 ),
               ),
